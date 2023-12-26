@@ -5,18 +5,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Donkey Archive</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .centered-paragraph {
+            text-align: center;
+            margin: 0 auto;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+    </style>
 </head>
 
 <body>
     <h1>Movie API Documentation</h1>
     <h2>The Donkey Archive</h2>
-    <span>The API is designed to be intuitive and easy to use, providing endpoints for searching films, retrieving
-        detailed information about a specific title, and exploring films by various categories, including directors,
-        genres, and release years. Whether you're looking to enrich a film-related project, conduct in-depth cinematic
-        research, or simply explore the diverse landscape of art cinema, the Donkey Archive API is your go-to source for
-        comprehensive and reliable film data.
+    <p class="centered-paragraph">The Donkey Archive API provides endpoints for efficient access to movie-related data.
+        These endpoints allow users to search for movies, retrieve detailed information about specific titles, and
+        explore films by directors, genres, and release years. This API offers a reliable
+        source of comprehensive film data for various applications.</p>
 
-    </span>
     <span></span>
     <h2>Movie Endpoints</h2>
     <table>
