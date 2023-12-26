@@ -17,6 +17,119 @@
         comprehensive and reliable film data.
 
     </span>
+    <span></span>
+    <h2>Movie Endpoints</h2>
+    <table>
+        <tr>
+            <th>Request Method</th>
+            <th>URL</th>
+            <th>Response</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/api/movies</td>
+            <td> return index of all movies to user</td>
+            <td>array of movie objects</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/api/movies/{id}</td>
+            <td>return a specific movie to user</td>
+            <td>movie object by id</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/genres/{name}</td>
+            <td>return data about a genre to user</td>
+            <td>genre object by name</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/directors/{name}</td>
+            <td>return data about a director to user</td>
+            <td>director object by name</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/years/{year}</td>
+            <td>return data about a year to user</td>
+            <td>year object by year</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/search/{term}</td>
+            <td>return data about a search term to user</td>
+            <td>search object by term</td>
+        </tr>
+    </table>
+    <h2>User Endpoints</h2>
+    <table>
+        <tr>
+            <th>Request Method</th>
+            <th>URL</th>
+            <th>Response</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/user/register</td>
+            <td>allow new user to register</td>
+            <td>registration conirmation or error</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/user/login</td>
+            <td>allow user to login</td>
+            <td>login confirmation or error</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/user/logout</td>
+            <td>allow user to logout</td>
+            <td>logout confirmation or error</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/user/{id}</td>
+            <td>return user data</td>
+            <td>user object by id</td>
+        </tr>
+        <tr>
+            <td>PUT</td>
+            <td>/user/{id}</td>
+            <td>allow user to update their data</td>
+            <td>user object by id</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/user/{id}</td>
+            <td>allow user to delete their account</td>
+            <td>user object by id</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/user/{id}/favorites</td>
+            <td>allow user to add a favorite movie</td>
+            <td>confirmation</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/user/{id}/favorites</td>
+            <td>allow user to remove a favorite movie</td>
+            <td>confirmation</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/user/{id}/favorites</td>
+            <td>return user's favorite movies</td>
+            <td>array of movie objects</td>
+        </tr>
+
+
+    </table>
+
+
 </body>
 
 </html>
