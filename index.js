@@ -1,10 +1,12 @@
-const e = require('express');
+
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
 
 app.use(morgan('common'));
 app.use(express.static('public'));
+
+const port = 3000;
 
 let topMovies = [
     { title: "There Will Be Blood", director: "Paul Thomas Anderson", year: "2007" },
@@ -100,7 +102,7 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-const port = 3000;
+
 app.listen(port, () => {
     console.log('Your app is listening on port ${port}.');
 });
