@@ -9,7 +9,7 @@ async function main() {
         console.log('connected to MongoDB!');
         const db = client.db('donkeyDB');
         const collection = db.collection('movies');
-        const movies = collection.find().toArray();
+        const movies = await collection.find().toArray();
         console.log(movies);
        
     }catch(error){
