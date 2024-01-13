@@ -2,6 +2,7 @@ const {MongoClient} = require('mongodb');
 const {MONGO_URI} = require('./config');
 const assert = require('assert');
 
+const moviesData = require('./movies.json');``
 async function main() {
     const client = new MongoClient(MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true});
     try {
