@@ -1,0 +1,159 @@
+[
+{
+    "title": "Parasite",
+    "director": {
+      "name": "Bong Joon-ho",
+      "dob": "1969-09-14",
+      "bio": "South Korean filmmaker"
+    },
+    "genre": {
+      "name": "Drama, Thriller",
+      "description": "Intense emotional narratives"
+    },
+    "year": 2019,
+    "description": "A gripping tale of class struggle."
+  },
+
+
+ 
+  {
+    "title": "Okja",
+    "director": {
+      "name": "Bong Joon-ho",
+      "dob": "1969-09-14",
+      "bio": "South Korean filmmaker"
+    },
+    "genre": {
+      "name": "Adventure, Drama",
+      "description": "Exciting and emotional journey"
+    },
+    "year": 2017,
+    "description": "A girl's fight to save her friend, a giant pig."
+  },
+
+  {
+    "title": "No Country for Old Men",
+    "director": {
+      "name": "Coen Brothers",
+      "dob": "1954-11-29",
+      "bio": "American film directors"
+    },
+    "genre": {
+      "name": "Crime, Thriller",
+      "description": "Intense, suspenseful storytelling"
+    },
+    "year": 2007,
+    "description": "A manhunt involving a hunter, a hitman, and a sheriff."
+  },
+
+  {
+    "title": "The Big Lebowski",
+    "director": {
+      "name": "Coen Brothers",
+      "dob": "1954-11-29",
+      "bio": "American film directors"
+    },
+    "genre": {
+      "name": "Comedy, Crime",
+      "description": "Humorous, often ironic storytelling"
+    },
+    "year": 1998,
+    "description": "A case of mistaken identity leads to a twisted adventure."
+  },
+
+  {
+    "title": "The Skin I Live In",
+    "director": {
+      "name": "Pedro Almodóvar",
+      "dob": "1949-09-25",
+      "bio": "Spanish film director"
+    },
+    "genre": {
+      "name": "Drama, Thriller",
+      "description": "Complex emotional narratives"
+    },
+    "year": 2011,
+    "description": "A dark tale of obsession and revenge."
+  },
+  
+  
+    {
+        "title": "Broken Embraces",
+        "director": {
+            "name": "Pedro Almodóvar",
+            "dob": "1949-09-25",
+            "bio": "Spanish film director"
+        },
+        "genre": {
+            "name": "Drama, Romance",
+            "description": "Complex emotional narratives"
+        },
+        "year": "2009",
+        "description": "Story of a blind screeen writer's affair with an actress."
+    },
+   
+    {
+        "title": "The Piano",
+        "director": {
+            "name": "Jane Campion",
+            "dob": "1954-04-30",
+            "bio": "New Zealand filmmaker"
+        },
+        "genre": {
+            "name": "Drama, Romance",
+            "description": "Gothic, dramatic storytelling of conflicts with society and female personhood."
+        },
+        "year": "1993",
+        "description": "Movie Description"
+    } , 
+    
+    
+        {
+            "title": "The Power of the Dog",
+            "director": {
+                "name": "Jane Campion",
+                "dob": "1954-04-30",
+                "bio": "New Zealand filmmaker"
+            },
+            "genre": {
+                "name": "Drama",
+                "description": "Gritty, emotional storytelling"
+            },
+            "year": "2021",
+            "description": "Gothic tale of two brothers in 1920s Montana exploring how violence and domination hide men's vulnerabilities."
+        },
+                                           
+        {
+            "title": "BabaDook",
+            "director": {
+                "name": "Jennifer Kent",
+                "dob": "1969-09-14",
+                "bio": "Australian filmmaker"
+            },
+            "genre": {
+                "name": "Horror, Thriller",
+                "description": "Intense, suspenseful storytelling"
+            },
+            "year": "Release Year",
+            "description": "Movie Description"
+        } , 
+        
+        
+            {
+                "title": "Nightengale",
+                "director": {
+                    "name": "Jennifer Kent",
+                    "dob": "1969-09-14",
+                    "bio": "Australian filmmaker"
+                },
+                "genre": {
+                    "name": "Adventure, Drama",
+                    "description": "Exciting and emotional journey"
+                },
+                "year": "2018",
+                "description": "British colonial setting in whixch a woman chases vengeance in the Tasmanian wilderness."
+            }
+           
+        ]
+           
+           
