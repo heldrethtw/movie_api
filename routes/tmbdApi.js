@@ -1,5 +1,7 @@
-import { get } from 'axios';
-import { TMBD_API_KEY } from './config';
+const axios = require('axios');
+const { get } = require('axios');
+const { TMBD_API_KEY } = require('./config');
+
 
 async function searchMovies(title) {
     const response = await get(`https://api.themoviedb.org/3/search/movie?api_key=${TMBD_API_KEY}&query=${title}`);

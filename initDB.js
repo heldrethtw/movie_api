@@ -1,7 +1,7 @@
-import { MongoClient } from 'mongodb';
-import { MONGO_URI } from './config';
-import moviesData from './movies.json';
-import usersData from './users.json';
+const { MongoClient } = require('mongodb');
+const { MONGO_URI } = require('./config');
+const moviesData = require('./movies.json');
+const usersData = require('./users.json');
 
 
 async function main() {
@@ -11,8 +11,8 @@ async function main() {
         console.log('connected to MongoDB!');
         const db = client.db('donkeyDB');
 
-        const moviesColection = db.collection('movies');
-        const usersColection = db.collection('users');
+        const moviesCollection = db.collection('movies');
+        const usersCollection = db.collection('users');
 
         const moviesCount = await db.collection('movies').countDocuments();
         if (moviesCount === 0) {
@@ -22,7 +22,7 @@ async function main() {
             console.log('movies already exist');
         }
 
-        const movies = await moviesColection.find().toArray();
+        const movies = await moviesCollection.find().toArray();
         console.log(movies);
 
 
@@ -35,12 +35,12 @@ async function main() {
             console.log('users already exist');
         }
 
-        const users = await usersColection.find().toArray();
+        const users = await usersCollection.find().toArray();
         console.log(users);
 
 
     } catch (error) {
-        console.error('An error occured connecting to MongoDB', error);
+        console.error('An error occurred connecting to MongoDB', error);
     } finally {
         await client.close();
     }

@@ -1,6 +1,9 @@
-import { Router } from 'express';
-import { searchMovies, fetchMovieDetails } from './tmdbApi';
+const { Router } = require('express');
+const { searchMovies, fetchMovieDetails } = require('../tmbdApi.js');
+const { Movie, User} = require('../models.js');
+
 const router = Router();    
+
 
 router.get('/search', async (req, res) => {
     try{
@@ -27,7 +30,7 @@ router.get('/details/:id', async (req, res) => {
 router.get('/movies/name/:name', async (req, res) => {
     try {
         const { name } = req.params;
-        const movies = await db.collection('movies').find({ title: name }).toArray();
+        const movies = await Movie.find({ Title: name });
         res.json(movies);
     } catch (err) {
         console.error(err);
@@ -39,8 +42,8 @@ router.get('/movies/name/:name', async (req, res) => {
 router.get('/movies/genre/:genre', async (req, res) => {
     try{
         const { genre } = req.params;
-        const movies = await db.collection('movies').find({'genre.name': genre }).toArray();
-        res.json(genre);
+        const movies = await Movie.find({'Genre.Name': genre });
+        res.json(movies);
     }catch(err) {
         res.status(500).send('Internal server error');
     }
@@ -50,8 +53,8 @@ router.get('/movies/genre/:genre', async (req, res) => {
 router.get('/movies/genre/:genre/director/:director', async (req, res) => {
     try{
         const { genre, director } = req.params;
-        const movies = await db.collection('movies').find({'genre.name': genre, 'director.name': director }).toArray();
-        res.json(genre);
+        const movies = await Movie.find({'Genre.Name': genre, 'Director.Name': director });
+        res.json(movies);
     }catch(err) {
         res.status(500).send('Internal server error');
     }
@@ -61,45 +64,47 @@ router.put('/movies/update-description/:id', async (req, res) => {
     try{
         const { id } = req.params;
         const { newDescription } = req.body;
-        await db.collection('movies').updateOne({ _id: ObjectId(id) }, { $set: { description: newDescription } });
-        res.json(genre);
+        await Movie.findOneAndUpdate({_id: id}, { Description: newDescription });
+        res.send('Movie description updated');
     }catch(err) {
+        console.error(err);
         res.status(500).send('Internal server error');
     }
 });
 
-router.put('movies/update-director-bio/:director', async (req, res) => {
+router.put('/movies/update-director-bio/:director', async (req, res) => {
     try{
         const { director } = req.params;
        const { newBio } = req.body;
-       await db.collection('movies').updateOne({ 'director.name': director }, { $set: { 'director.bio': newBio } });
-        res.json(genre);
+       await Movie.updateOne({'Director.Name': director}, { 'Director.Bio': newBio });
+        res.send('Director bio updated');
     }catch(err) {
         res.status(500).send('Internal server error');
     }
 });
 
-router.put('users/:username/add-favorite', async (req, res) => {
+router.put('/users/:username/add-favorite', async (req, res) => {
     try{
         const { username } = req.params;
-        const movieID = req.body;
-        await db.collection('users').updateOne({ username: username }, { $push: { favorites: movieID } });
-        res.json(genre);
+        const {movieID} = req.body;
+        await User.findOneAndUpdate({ Username: username }, { $addToSet: { favoriteMovies: movieID } });
+        res.send('Favorite movie added for user ${username}');
     }catch(err) {
+        console.error(err);
         res.status(500).send('Internal server error');
     }
 });
 
-router.delete('/users/:usersname', async (req, res) => {
+router.delete('/users/:username', async (req, res) => {
     try{
         const { username } = req.params;
-        await db.collection('users').deleteOne({ username: username });
-        res.json(genre);
+        await User.findOneAndDelete({ Username: username });
+        res.send(`User ${username} was deleted`);
     }catch(err) {
         res.status(500).send('Internal server error');
     }
 });
 
-
+export default router;
 
 

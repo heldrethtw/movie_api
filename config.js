@@ -2,9 +2,10 @@ require('dotenv').config();
 
 const config = {
     TMBD_API_KEY: process.env.TMBD_API_KEY,
-    MONGO_URI: process.env.MONGO_URI
+    TMBD_API_KEY: 'your_tmdb_api_key'
 };
+  
 
 
 
-module.exports = config;
+export default config;
