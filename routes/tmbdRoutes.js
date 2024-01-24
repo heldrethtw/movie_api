@@ -1,7 +1,7 @@
-const express = require('express');
-const { Movie, User, Genre, Director} = require('../models.js');
+import { Router } from 'express';
+import { Movie, User, Genre, Director } from '../models.js';
 
-const router = express.Router();   
+const router = Router();   
 
 router.post('/movies', async (req, res) => {
     try {
@@ -332,5 +332,5 @@ router.put('/directors/:id', async (req, res) => {
 
 
 
-module.exports = router;
+export default router;
 
