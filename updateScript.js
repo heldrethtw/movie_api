@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
-import { Movie, Genre, Director } from './models.js';
+import { Movie } from './models.js';
+import moviesData from './movies.json' assert { type: "json" };
+
 
 mongoose.connect('mongodb://localhost:27017/donkeyDB');
 
@@ -14,7 +16,7 @@ async function importMovies() {
         console.log('Movies imported');
 
     } catch(error) {
-        console.error('Error improting movies:', error);
+        console.error('Error importing movies:', error);
     } finally {
         mongoose.disconnect();
     }
