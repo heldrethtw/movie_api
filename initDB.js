@@ -1,49 +1,34 @@
-const { MongoClient } = require('mongodb');
-const { MONGO_URI } = require('./config');
+const mongoose = require('mongoose');
+const { Movie, User } = require('./models');
 const moviesData = require('./movies.json');
 const usersData = require('./users.json');
 
-
 async function main() {
-    const client = new MongoClient(MONGO_URI);
     try {
-        await client.connect(); 
-        console.log('connected to MongoDB!');
-        const db = client.db('donkeyDB');
+        await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+        console.log('Connected to MongoDB with Mongoose');
 
-        const moviesCollection = db.collection('movies');
-        const usersCollection = db.collection('users');
-
-        const moviesCount = await db.collection('movies').countDocuments();
+        const moviesCount = await Movie.countDocuments();
         if (moviesCount === 0) {
-            await db.collection('movies').insertMany(moviesData);
+            await Movie.insertMany(moviesData);
             console.log(`${moviesData.length} movies inserted!`);
         } else {
-            console.log('movies already exist');
+            console.log('Movies already exist');
         }
 
-        const movies = await moviesCollection.find().toArray();
-        console.log(movies);
-
-
-
-        const usersCount = await db.collection('users').countDocuments();
+        const usersCount = await User.countDocuments();
         if (usersCount === 0) {
-            await db.collection('users').insertMany(usersData);
+            await User.insertMany(usersData);
             console.log(`${usersData.length} users inserted!`);
         } else {
-            console.log('users already exist');
+            console.log('Users already exist');
         }
 
-        const users = await usersCollection.find().toArray();
-        console.log(users);
-
-
     } catch (error) {
-        console.error('An error occurred connecting to MongoDB', error);
+        console.error('An error occurred:', error);
     } finally {
-        await client.close();
+        await mongoose.disconnect();
     }
 }
 
-main().catch(console.dir);
+main().catch(console.error);

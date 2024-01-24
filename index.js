@@ -1,17 +1,17 @@
 const mongoose = require('mongoose');
-const Models = require('./models');
-const Movies = Models.Movie;
-const Users = Models.User;
 const express = require('express');
+const morgan = require('morgan');
+const tmbdRoutes = require('./routes/tmbdRoutes');
 require('dotenv').config();
 
-const express = require('express');
- const morgan = require('morgan');
-const connectDB = require('./db');
-const tmbdRoutes = require('./routes/tmbdRoutes');
-const app = express();
-connectDB();
+const Models = require('./models');
+const Movie = Models.Movie;
+const User = Models.User;
 
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost 27017/donkeyDB',{ useNewUrlParser: true, useUnifiedTopology: true });
+
+
+const app = express();
 const port = 3000;
 
 app.use(morgan('common'));
@@ -27,3 +27,5 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
     console.log(`Your app is listening on port ${port}.`);
 });
+
+

@@ -1,8 +1,29 @@
-const { Router } = require('express');
-const { searchMovies, fetchMovieDetails } = require('../tmbdApi.js');
+const express = require('express');
 const { Movie, User} = require('../models.js');
 
-const router = Router();    
+const router = express.Router();    
+
+router.get('/movies', async (req, res) => {
+    try{
+        const movies = await Movie.find();
+        res.json(movies);
+    } catch(err) {
+        console.error(err.stack);
+        res.status(500).send('Something broke!');
+    }
+});
+
+router.post('/users', async (req, res) => {
+   try {
+    const newUser = User(req.body);
+    await newUser.save();
+    res.status(201).json(newUser);
+} catch(error) {
+    console.error(error);
+    res.status(500).send('Error: ' + error);
+}
+});
+
 
 
 router.get('/search', async (req, res) => {
@@ -18,8 +39,8 @@ router.get('/search', async (req, res) => {
 
 router.get('/details/:id', async (req, res) => {
     try{
-        const { movieID } = req.params;
-        const details = await fetchMovieDetails(movieID);
+        const { id } = req.params;
+        const details = await fetchMovieDetails(id);
         res.json(details);
     }catch(err) {
         console.error(err.stack);
@@ -39,11 +60,11 @@ router.get('/movies/name/:name', async (req, res) => {
 });
 
 
-router.get('/movies/genre/:genre', async (req, res) => {
+router.put('/movies/:id/description', async (req, res) => {
     try{
-        const { genre } = req.params;
-        const movies = await Movie.find({'Genre.Name': genre });
-        res.json(movies);
+        const { id } = req.params;
+        const {newDescription} = req.body;
+        await Movie.findByIdeAndUpdate(id, { Description: newDescription });
     }catch(err) {
         res.status(500).send('Internal server error');
     }
@@ -88,7 +109,7 @@ router.put('/users/:username/add-favorite', async (req, res) => {
         const { username } = req.params;
         const {movieID} = req.body;
         await User.findOneAndUpdate({ Username: username }, { $addToSet: { favoriteMovies: movieID } });
-        res.send('Favorite movie added for user ${username}');
+        res.send(`Favorite movie added for user ${username}`);
     }catch(err) {
         console.error(err);
         res.status(500).send('Internal server error');
@@ -105,6 +126,5 @@ router.delete('/users/:username', async (req, res) => {
     }
 });
 
-export default router;
-
+module.exports = router;
 
