@@ -1,17 +1,19 @@
-const mongoose = require('mongoose');
-const { Movie, User } = require('./models');
-const moviesData = require('./movies.json');
-const usersData = require('./users.json');
+import { config } from 'dotenv';
+config();
+import { connect, disconnect } from 'mongoose';
+import { Movie, User } from './models.js';
+import moviesData from './movies.json' assert { type: "json" };
+import usersData from './users.json' assert { type: "json" };
 
 async function main() {
     try {
-        await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+        await connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
         console.log('Connected to MongoDB with Mongoose');
 
         const moviesCount = await Movie.countDocuments();
         if (moviesCount === 0) {
             await Movie.insertMany(moviesData);
-            console.log(`${moviesData.length} movies inserted!`);
+            console.log(`${length} movies inserted!`);
         } else {
             console.log('Movies already exist');
         }
@@ -19,7 +21,7 @@ async function main() {
         const usersCount = await User.countDocuments();
         if (usersCount === 0) {
             await User.insertMany(usersData);
-            console.log(`${usersData.length} users inserted!`);
+            console.log(`${_length} users inserted!`);
         } else {
             console.log('Users already exist');
         }
@@ -27,8 +29,8 @@ async function main() {
     } catch (error) {
         console.error('An error occurred:', error);
     } finally {
-        await mongoose.disconnect();
+        await disconnect();
     }
 }
 
-main().catch(console.error);
+main();

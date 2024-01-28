@@ -10,7 +10,7 @@ router.post('/movies', async (req, res) => {
         res.status(201).json(newMovie);
     }
     catch (err) {
-        console.error(error);
+        console.error(err);
         res.status(500).send('Internal server error');
     }
 });
@@ -25,17 +25,9 @@ router.get('/movies', async (req, res) => {
     }
 });
 
-router.get('/movies', async (req, res) => {
-    try{
-        const movies = await Movie.find();
-        res.json(movies);
-    } catch(err) {
-        console.error(err.stack);
-        res.status(500).send('Something broke!');
-    }
-});
 
-router.get('movies/:id', async (req, res) => {
+
+router.get('/movies/:id', async (req, res) => {
     try{
         const movie = await Movie.findById(req.params.id);
         if(movie) {
@@ -120,7 +112,7 @@ router.put('/movies/:id/description', async (req, res) => {
     try{
         const { id } = req.params;
         const {newDescription} = req.body;
-        await Movie.findByIdeAndUpdate(id, { Description: newDescription });
+        await Movie.findByIdAndUpdate(id, { Description: newDescription });
     }catch(err) {
         res.status(500).send('Internal server error');
     }
@@ -303,7 +295,7 @@ router.post('/directors', async (req, res) => {
         res.json(directors);
         res.status(201).json(directors);
     }catch(err) {
-        res.status(500).send('Error: ' + error);
+        res.status(500).send('Error: ' + err);
     }
 });
 
@@ -316,7 +308,7 @@ router.get('/directors/:id', async (req, res) => {
             res.status(404).send('Director not found');
         }
     }catch(err) {
-        res.status(500).send('error: ' + error);
+        res.status(500).send('error: ' + err);
     }
 });
 
@@ -325,8 +317,8 @@ router.put('/directors/:id', async (req, res) => {
         await Director.findByIdAndDelete(req.params.id);
         res.send('Director deleted');
     }catch(err) {
-        console.error(error);
-        res.status(500).send('Error: ' + error);
+        console.error(err);
+        res.status(500).send('Error: ' + err);
     }
 });
 
