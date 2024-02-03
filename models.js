@@ -20,9 +20,10 @@ let directorSchema = new Schema({
 });
 
 let userSchema = new Schema({
-    Name:{type:String,required:true},
+    Username:{type:String,required:true},
     Email:{type:String,required:true},
     Birth:Date
+    
 });
 
 export const Movie = model('Movie', movieSchema);

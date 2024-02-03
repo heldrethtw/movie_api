@@ -7,7 +7,7 @@ import usersData from './users.json' assert { type: "json" };
 
 async function main() {
     try {
-        await connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+        await connect(process.env.MONGO_URI || 'mongodb://localhost:27017/donkeyDB');
         console.log('Connected to MongoDB with Mongoose');
 
         const moviesCount = await Movie.countDocuments();
@@ -18,19 +18,18 @@ async function main() {
             console.log('Movies already exist');
         }
 
-        const usersCount = await User.countDocuments();
-        if (usersCount === 0) {
-            await User.insertMany(usersData);
-            console.log(`${_length} users inserted!`);
-        } else {
-            console.log('Users already exist');
+        for (const userData of usersData) {
+            await User.findOneAndUpdate(
+               { Email: userData.Email},
+                userData,
+                { upsert: true, new: true, setDefaultsOnInsert: true}
+            );
         }
-
+console.log(`${usersData.length} users inserted!`);
     } catch (error) {
-        console.error('An error occurred:', error);
+        console.error('Error:', error);
     } finally {
         await disconnect();
     }
 }
-
 main();
