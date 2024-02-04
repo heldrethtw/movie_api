@@ -84,18 +84,33 @@ router.delete('/movies/:id', async (req, res) => {
         res.status(500).send('Error: ' + err);
     }
 });
-
-// Create a new user
-router.post('/users', async (req, res) => {
+//Get a movie by genre
+router.get('/movies/genre/:genre', async (req, res) => {
+    const {genre} = req.params.genre;
     try {
-        const newUser = new User(req.body);
-        await newUser.save();
-        res.status(201).json(newUser);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
+    const movies = await Movie.find({ "Genre": genre });
+    if(movies.length) {
+        res.json(movies);
+    } else {
+        res.status(404).send('Movies not found for the genre ' + genreName);
     }
+} catch (err) {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+}
 });
+
+    // Create a new user
+    router.post('/users', async (req, res) => {
+        try {
+            const newUser = new User(req.body);
+            await newUser.save();
+            res.status(201).json(newUser);
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        }
+    });
 
 // Get all users
 router.get('/users', async (req, res) => {
@@ -143,22 +158,24 @@ router.put('/users/:username', async (req, res) => {
 });
 //add a movie to a user's favorites
 router.put('/users/:username/add-favorite/:movieID', async (req, res) => {
-    try{
-        const updatedUser = await User.findOneAndUpdate(
-            { Username: req.params.username },
-            { $push: { Favorites: req.params.movieID } },
-            { new: true }
-        );
-        if(!updatedUser){
-            return res.status(404).send('Username not found');
-        }
-        res.json(updatedUser);
+ try{
+    const {movieId} = req.params;
+    const username = req.params.username;
+    const updatedUser = await User.findOneAndUpdate(
+        {Username: username},
+        {$push: {Favorites: movieId}},
+        {new: true}
+    );
+    if(!updatedUser){
+        return res.status(404).send('User not found');
     }
-    catch(err){
+    res.json(updatedUser);
+    } catch (err) {
         console.error(err);
         res.status(500).send('Error: ' + err);
     }
-});
+}
+);
 
 // Delete a user
 router.delete('/users/:username', async (req, res) => {
