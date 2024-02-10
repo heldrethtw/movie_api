@@ -29,9 +29,9 @@ router.get('/movies', async (req, res) => {
 // Get a single movie by ID
 router.get('/movies/:id', async (req, res) => {
     try {
-        const movie = await Movie.findById(req.params.id);
-        if (movie) {
-            res.json(movie);
+        const movies = await Movie.findById(req.params.id);
+        if (movies) {
+            res.json(movies);
         } else {
             res.status(404).send('Movie not found');
         }
@@ -39,6 +39,38 @@ router.get('/movies/:id', async (req, res) => {
         console.error(err);
         res.status(500).send('Error: ' + err);
     }
+});
+
+//Get a movie by title
+router.get('/movies/title/:title', async (req, res) => {
+    const {title} = req.params.title;
+    try {
+    const movies = await Movie.findOne({ "Title": title });
+    if(movies) {
+        res.json(movies);
+    } else {
+        res.status(404).send('Movies not found for the title ' + title);
+    }
+} catch (err) {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+}
+});
+
+//Get a movie by director
+router.get('/movies/director/:director', async (req, res) => {
+    const {director} = req.params.director;
+    try {
+    const movies = await Movie.findOne({ "Director": director });
+    if(movies.length) {
+        res.json(movies);
+    } else {
+        res.status(404).send('Movies not found for the director ' + director);
+    }
+} catch (err) {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+}
 });
 
 // Update a movie
@@ -187,7 +219,40 @@ router.delete('/users/:username', async (req, res) => {
         res.status(500).send('Error: ' + err);
     }
 });
+//delete a user favorite movie
+router.delete('/users/:username/favorites/:movieID', async (req, res) => {
+    try {
+        const {movieId} = req.params;
+        const username = req.params.username;
+        const updatedUser = await User.findOneAndUpdate(
+            {Username: username},
+            {$pull: {Favorites: movieId}},
+            {new: true}
+        );
+        if(!updatedUser){
+            return res.status(404).send('User not found');
+        }
+        res.json(updatedUser);
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        }
+    }
+    );
 
+    //update all user birth dates to ISOdate
+    router.put('/users/birth', async (req, res) => {
+        try {
+            const updatedUser = await User.updateMany(
+                {},
+                { $set: { Birth: new Date(req.body.Birth) } }
+            );
+            res.json(updatedUser);
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        }
+    });
 // Create a new genre
 router.post('/genres', async (req, res) => {
     try {
