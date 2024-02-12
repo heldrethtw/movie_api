@@ -1,10 +1,14 @@
 import { Router } from 'express';
 import { Movie, User, Genre, Director } from '../models.js';
+import passport from 'passport';
 
 const router = Router();
 
 // Create a new movie
-router.post('/movies', async (req, res) => {
+router.post('/movies', passport.authentication ('jwt', {
+    session: false
+}),
+ async (req, res) => {
     try {
         const newMovie = new Movie(req.body);
         await newMovie.save();
@@ -16,7 +20,9 @@ router.post('/movies', async (req, res) => {
 });
 
 // Get all movies
-router.get('/movies', async (req, res) => {
+router.get('/movies', passport.authentication (
+    'jwt', {session: false}),
+async (req, res) => {
     try {
         const movies = await Movie.find();
         res.json(movies);
@@ -27,7 +33,9 @@ router.get('/movies', async (req, res) => {
 });
 
 // Get a single movie by ID
-router.get('/movies/:id', async (req, res) => {
+router.get('/movies/:id', passport.authentication (
+    'jwt', {session: false}),
+ async (req, res) => {
     try {
         const movies = await Movie.findById(req.params.id);
         if (movies) {
@@ -42,7 +50,9 @@ router.get('/movies/:id', async (req, res) => {
 });
 
 //Get a movie by title
-router.get('/movies/title/:title', async (req, res) => {
+router.get('/movies/title/:title', passport.authentication (
+    'jwt', {session: false}),
+ async (req, res) => {
     const { title } = req.params.title;
     try {
         const movies = await Movie.findOne({ "Title": title });
@@ -58,7 +68,9 @@ router.get('/movies/title/:title', async (req, res) => {
 });
 
 //Get a movie by director
-router.get('/movies/director/:director', async (req, res) => {
+router.get('/movies/director/:director', passport.authenticate(
+    'jwt', { session: false }),
+  async (req, res) => {
     const { director } = req.params.director;
     try {
         const movies = await Movie.findOne({ "Director": director });
@@ -74,7 +86,9 @@ router.get('/movies/director/:director', async (req, res) => {
 });
 
 // Update a movie
-router.put('/movies/:id', async (req, res) => {
+router.put('/movies/:id', passport.authenticate (
+   'jwt', { session: false }),
+ async (req, res) => {
     try {
         const updatedMovie = await Movie.findByIdAndUpdate(
             req.params.id,
@@ -89,7 +103,9 @@ router.put('/movies/:id', async (req, res) => {
 });
 
 // Change movie description
-router.put('/movies/:id/description', async (req, res) => {
+router.put('/movies/:id/description', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         const updatedMovie = await Movie.findByIdAndUpdate(
             req.params.id,
@@ -107,7 +123,9 @@ router.put('/movies/:id/description', async (req, res) => {
 
 
 // Delete a movie
-router.delete('/movies/:id', async (req, res) => {
+router.delete('/movies/:id', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         await Movie.findByIdAndDelete(req.params.id);
         res.send('Movie deleted');
@@ -117,7 +135,9 @@ router.delete('/movies/:id', async (req, res) => {
     }
 });
 //Get a movie by genre
-router.get('/movies/genre/:genre', async (req, res) => {
+router.get('/movies/genre/:genre', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     const { genre } = req.params.genre;
     try {
         const movies = await Movie.find({ "Genre": genre });
@@ -133,7 +153,9 @@ router.get('/movies/genre/:genre', async (req, res) => {
 });
 
 // Create a new user
-router.post('/users', async (req, res) => {
+router.post('/users', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         const newUser = new User(req.body);
         await newUser.save();
@@ -145,7 +167,9 @@ router.post('/users', async (req, res) => {
 });
 
 // Get all users
-router.get('/users', async (req, res) => {
+router.get('/users', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         const users = await User.find();
         res.json(users);
@@ -156,7 +180,9 @@ router.get('/users', async (req, res) => {
 });
 
 // Get a user by username
-router.get('/users/:username', async (req, res) => {
+router.get('/users/:username', passport.authenticate(
+    'jwt', { session: false }), 
+async (req, res) => {
     console.log('Requested username:', req.params.username)
     try {
         const user = await User.findOne({ Username: req.params.username });
@@ -172,7 +198,9 @@ router.get('/users/:username', async (req, res) => {
 });
 
 // Update a user
-router.put('/users/:username', async (req, res) => {
+router.put('/users/:username', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         const updatedUser = await User.findOneAndUpdate(
             { Username: req.params.username },
@@ -189,7 +217,9 @@ router.put('/users/:username', async (req, res) => {
     }
 });
 //add a movie to a user's favorites
-router.put('/users/:username/add-favorite/:movieID', async (req, res) => {
+router.put('/users/:username/add-favorite/:movieID', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         const { movieId } = req.params;
         const username = req.params.username;
@@ -210,7 +240,9 @@ router.put('/users/:username/add-favorite/:movieID', async (req, res) => {
 );
 
 // Delete a user
-router.delete('/users/:username', async (req, res) => {
+router.delete('/users/:username', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         await User.findOneAndDelete({ Username: req.params.username });
         res.send(`User ${req.params.username} deleted`);
@@ -220,7 +252,9 @@ router.delete('/users/:username', async (req, res) => {
     }
 });
 //delete a user favorite movie
-router.delete('/users/:username/favorites/:movieID', async (req, res) => {
+router.delete('/users/:username/favorites/:movieID', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         const { movieId } = req.params;
         const username = req.params.username;
@@ -241,7 +275,9 @@ router.delete('/users/:username/favorites/:movieID', async (req, res) => {
 );
 
 //update all user birth dates to ISOdate
-router.put('/users/birth', async (req, res) => {
+router.put('/users/birth', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         const updatedUser = await User.updateMany(
             {},
@@ -254,7 +290,9 @@ router.put('/users/birth', async (req, res) => {
     }
 });
 // Create a new genre
-router.post('/genres', async (req, res) => {
+router.post('/genres', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         const newGenre = new Genre(req.body);
         await newGenre.save();
@@ -266,7 +304,9 @@ router.post('/genres', async (req, res) => {
 });
 
 // Get all genres
-router.get('/genres', async (req, res) => {
+router.get('/genres', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         const genres = await Genre.find();
         res.json(genres);
@@ -277,7 +317,9 @@ router.get('/genres', async (req, res) => {
 });
 
 // Get a single genre by ID
-router.get('/genres/:id', async (req, res) => {
+router.get('/genres/:id', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         const genre = await Genre.findById(req.params.id);
         if (genre) {
@@ -292,7 +334,9 @@ router.get('/genres/:id', async (req, res) => {
 });
 
 // Update a genre
-router.put('/genres/:id', async (req, res) => {
+router.put('/genres/:id',   passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         const updatedGenre = await Genre.findByIdAndUpdate(
             req.params.id,
@@ -307,7 +351,9 @@ router.put('/genres/:id', async (req, res) => {
 });
 
 // Delete a genre
-router.delete('/genres/:id', async (req, res) => {
+router.delete('/genres/:id', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         await Genre.findByIdAndDelete(req.params.id);
         res.send('Genre deleted');
@@ -318,7 +364,9 @@ router.delete('/genres/:id', async (req, res) => {
 });
 
 // Create a new director
-router.post('/directors', async (req, res) => {
+router.post('/directors', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         const newDirector = new Director(req.body);
         await newDirector.save();
@@ -330,7 +378,9 @@ router.post('/directors', async (req, res) => {
 });
 
 // Get all directors
-router.get('/directors', async (req, res) => {
+router.get('/directors', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         const directors = await Director.find();
         res.json(directors);
@@ -341,7 +391,9 @@ router.get('/directors', async (req, res) => {
 });
 
 // Get a single director by ID
-router.get('/directors/:id', async (req, res) => {
+router.get('/directors/:id', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         const director = await Director.findById(req.params.id);
         if (director) {
@@ -356,7 +408,9 @@ router.get('/directors/:id', async (req, res) => {
 });
 
 // Update a director
-router.put('/directors/:id', async (req, res) => {
+router.put('/directors/:id', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         const updatedDirector = await Director.findByIdAndUpdate(
             req.params.id,
@@ -371,7 +425,9 @@ router.put('/directors/:id', async (req, res) => {
 });
 
 // Delete a director
-router.delete('/directors/:id', async (req, res) => {
+router.delete('/directors/:id', passport.authenticate(
+    'jwt', { session: false }),
+async (req, res) => {
     try {
         await Director.findByIdAndDelete(req.params.id);
         res.send('Director deleted');
