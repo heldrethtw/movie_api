@@ -21,6 +21,7 @@ let directorSchema = new Schema({
 
 let userSchema = new Schema({
     Username:{type:String,required:true},
+    Password:{type:String,required:true},
     Email:{type:String,required:true},
     Birth:Date,
     Favorites:[{type:Schema.Types.ObjectId,ref:'Movie'}]
