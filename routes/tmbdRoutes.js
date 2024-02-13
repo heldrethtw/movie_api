@@ -8,7 +8,6 @@ const authenticateJWT = passport.authenticate('jwt', { session: false });
 
 // Create a new movie
 router.post('/movies', authenticateJWT,
-
     async (req, res) => {
         try {
             const newMovie = new Movie(req.body);
@@ -24,8 +23,8 @@ router.post('/movies', authenticateJWT,
 router.get('/movies', authenticateJWT,
     async (req, res) => {
         try {
-            const movie = await Movie.find();
-            res.json(movie);
+            const movies = await Movie.find();
+            res.json(movies);
         } catch (err) {
             console.error(err);
             res.status(500).send('Error: ' + err);
