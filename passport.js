@@ -1,42 +1,53 @@
-import { use } from 'passport';
-import { Strategy as LocalStrategy } from 'passport-local';
-import { User } from './models';
-Models = require('./models.js');
-passportJWT = require('passport-jwt');
-const JWTStrategy = passportJWT.Strategy;
-const ExtractJWT = passportJWT.ExtractJwt;
 
-use(new LocalStrategy({
+import bcrypt from 'bcrypt';
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
+import { User } from './models.js'; 
+
+import dotenv from 'dotenv';
+dotenv.config();
+
+
+passport.use(new LocalStrategy({
     usernameField: 'Username',
     passwordField: 'Password'
 },
-    async (username, password, callback) => {
-        console.log(`${username} ${password}`);
-        await User.findOne({ Username: username })
-            .then((user) => {
-                if (!user) {
-                    console.log('incorrect username');
-                    return callback(null, false, { message: 'Incorrect username.' });
-                }
-                console.log('finished');
-                return callback(null, user);
-            })
-            .catch((error) => {
-                console.log('error');
-                return callback(error);
-            });
-    }));
+async (username, password, done) => {
+    try {
+        const user = await User.findOne({ Username: username });
+        if (!user) {
+            return done(null, false, { message: 'Incorrect username.' });
+        }
 
-use(new JWTStrategy({
-    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'your_jwt_secret'
+        // Compare hashed password
+        const isMatch = await bcrypt.compare(password, user.Password);
+        if (isMatch) {
+            return done(null, user);
+        } else {
+            return done(null, false, { message: 'Incorrect password.' });
+        }
+    } catch (error) {
+        return done(error);
+    }
+}));
+
+
+passport.use(new JwtStrategy({
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.JWT_SECRET 
 },
-    async (jwtPayload, callback) => {
-        return await User.findById(jwtPayload._id)
-            .then((user) => {
-                return callback(null, user);
-            })
-            .catch((error) => {
-                return callback(error);
-            });
-    }));
+async (jwtPayload, done) => {
+    try {
+        const user = await User.findById(jwtPayload._id);
+        if (user) {
+            return done(null, user);
+        } else {
+            return done(null, false);
+        }
+    } catch (error) {
+        return done(error);
+    }
+}));
+
+export default passport;

@@ -10,7 +10,7 @@ async function updateUsersAddPassword() {
   for (const user of users) {
     // Hash a default password
     const hashedPassword = await bcrypt.hash('defaultPassword', 10); 
-
+console.log(`Hashed password for user ${user._id}: ${hashedPassword}`)
     // Update user document
     await User.updateOne(
       { _id: user._id },
