@@ -1,6 +1,9 @@
 import { Router } from 'express';
-import { Movie, User, Genre, Director } from '../models.js';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import passport from 'passport';
+
+import { Movie, User, Genre, Director } from '../models.js';
 
 const router = Router();
 
@@ -144,18 +147,6 @@ router.get('/movies/genre/:genre', authenticateJWT,
         }
     });
 
-// Create a new user
-router.post('/users', authenticateJWT,
-    async (req, res) => {
-        try {
-            const newUser = new User(req.body);
-            await newUser.save();
-            res.status(200).json(newUser);
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Error: ' + err);
-        }
-    });
 
 // Get all users
 router.get('/users', authenticateJWT,

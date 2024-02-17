@@ -1,6 +1,7 @@
 import express from 'express';
 import { json, urlencoded } from 'express';
 import morgan from 'morgan';
+import authRoutes from './routes/auth.js';
 import './passport.js';
 import { config } from 'dotenv';
 import { connect } from 'mongoose';
@@ -28,6 +29,7 @@ app.use(urlencoded({ extended: true }));
 app.use(passport.initialize());
 
 app.use('/api/tmbd', tmbdRoutes);
+app.use('/api/auth', authRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
