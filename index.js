@@ -1,27 +1,36 @@
 import express from 'express';
 import { json, urlencoded } from 'express';
 import morgan from 'morgan';
+import cors from 'cors';
+
 import authRoutes from './routes/auth.js';
 import './passport.js';
 import { config } from 'dotenv';
 import { connect } from 'mongoose';
-
 import passport from 'passport';
-
-
 import tmbdRoutes from './routes/tmbdRoutes.js';
 
 
 config();
 
 connect(process.env.MONGO_URI || 'mongodb://localhost:27017/donkeyDB')
-.then(() => console.log('Connected to MongoDB with Mongoose'))
-.catch(error => console.error('Error connecting to MongoDB:', error));
+    .then(() => console.log('Connected to MongoDB with Mongoose'))
+    .catch(error => console.error('Error connecting to MongoDB:', error));
 
 const app = express();
 
 
-
+let allowedOrigins = ['http://localhost:3000'];
+app.use(cors({
+    origin:(origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            let message = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(message), false);
+        }
+        return callback(null, true);
+    }
+}));
 app.use(morgan('common'));
 app.use(express.static('public'));
 app.use(json());
