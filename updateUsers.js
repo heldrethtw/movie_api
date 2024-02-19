@@ -1,23 +1,26 @@
 import { connect, disconnect } from 'mongoose';
 import bcrypt from 'bcrypt';
 import { User } from './models.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 async function updateUsersAddPassword() {
-  await connect('mongodb://localhost:27017/donkeyDB');
-
+  await connect(process.env.CONNECTION_URI);
+    
   const users = await User.find({});
 
   for (const user of users) {
-
     const hashedPassword = await bcrypt.hash('defaultPassword', 10);
-    console.log(`Hashed password for user ${user._id}: ${hashedPassword}`)
+    console.log(`Updating ${user.Username}`)
 
     await User.updateOne(
       { _id: user._id },
       {
         $set: {
           Username: user.Name || user.Username,
-          Password: hashedPassword
+          Password: hashedPassword,
+          isPasswordTemporary: true
         },
         $unset: { Name: "" }
       }
