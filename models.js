@@ -1,4 +1,6 @@
 import { Schema, model } from 'mongoose';
+import bcrypt from 'bcrypt';
+
 let movieSchema = new Schema({
     Title: { type: String, required: true },
     Description: { type: String, required: true },
@@ -26,6 +28,10 @@ let userSchema = new Schema({
     Birth:Date,
     Favorites:[{type:Schema.Types.ObjectId,ref:'Movie'}]
 });
+
+userSchema.statics.hashPassword = (password) => {
+    return bcrypt.hashSync(password, 10);
+}
 
 export const Movie = model('Movie', movieSchema);
 export const User = model('User', userSchema);
