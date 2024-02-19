@@ -22,7 +22,7 @@ const app = express();
 
 let allowedOrigins = ['http://localhost:3000'];
 app.use(cors({
-    origin:(origin, callback) => {
+    origin: (origin, callback) => {
         if (!origin) return callback(null, true);
         if (allowedOrigins.indexOf(origin) === -1) {
             let message = 'The CORS policy for this site does not allow access from the specified Origin.';
