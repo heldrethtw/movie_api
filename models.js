@@ -7,31 +7,36 @@ let movieSchema = new Schema({
     Genre: { type: String, required: true },
     Director: { type: String, required: true }
 });
-  
+
 
 let genreSchema = new Schema({
-    Name: {type:String,required:true},
-    Description: {type:String,required:true}        
+    Name: { type: String, required: true },
+    Description: { type: String, required: true }
 });
 
 let directorSchema = new Schema({
-    Name: {type:String,required:true},
-    Bio: {type:String,required:true},
-    Birth: {type:String,required:true},
-    Death: {type:String,required:false}
+    Name: { type: String, required: true },
+    Bio: { type: String, required: true },
+    Birth: { type: String, required: true },
+    Death: { type: String, required: false }
 });
 
 let userSchema = new Schema({
-    Username:{type:String,required:true},
-    Password:{type:String,required:true},
-    Email:{type:String,required:true},
-    Birth:Date,
-    Favorites:[{type:Schema.Types.ObjectId,ref:'Movie'}]
+    Username: { type: String, required: true },
+    Password: { type: String, required: true },
+    Email: { type: String, required: true },
+    Birth: Date,
+    Favorites: [{ type: Schema.Types.ObjectId, ref: 'Movie' }]
 });
 
 userSchema.statics.hashPassword = (password) => {
     return bcrypt.hashSync(password, 10);
 }
+
+userSchema.methods.validatePassword = function (password) {
+    return bcrypt.compareSync(password, this.Password);
+}
+
 
 export const Movie = model('Movie', movieSchema);
 export const User = model('User', userSchema);
