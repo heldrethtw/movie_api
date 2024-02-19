@@ -30,7 +30,7 @@ let userSchema = new Schema({
 });
 
 userSchema.statics.hashPassword = (password) => {
-    return bcrypt.hashSync(password, 10);
+   return bcrypt.compareSync(password, this.Password);
 }
 
 userSchema.methods.validatePassword = function (password) {
