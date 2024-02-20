@@ -2,6 +2,7 @@ import express from 'express';
 import { json, urlencoded } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import { ExpressValidator } from 'express-validator';
 
 import authRoutes from './routes/auth.js';
 import './passport.js';
@@ -19,6 +20,7 @@ connect(process.env.MONGO_URI, {
     .catch(error => console.error('Error connecting to MongoDB:', error));
 
 const app = express();
+
 
 
 let allowedOrigins = ['http://localhost:3000'];

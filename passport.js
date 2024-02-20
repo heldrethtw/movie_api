@@ -20,7 +20,7 @@ async (username, password, done) => {
             return done(null, false, { message: 'Incorrect username.' });
         }
 
-        // Compare hashed password
+        
         const isMatch = await bcrypt.compare(password, user.Password);
         if (isMatch) {
             return done(null, user);
