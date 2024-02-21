@@ -1,4 +1,6 @@
 import express from 'express';
+import { router } from 'express';
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
 import { User } from '../models.js';

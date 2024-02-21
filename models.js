@@ -29,13 +29,13 @@ let userSchema = new Schema({
     Favorites: [{ type: Schema.Types.ObjectId, ref: 'Movie' }]
 });
 
-userSchema.statics.hashPassword = (password) => {
-   return bcrypt.compareSync(password, this.Password);
-}
+userSchema.statics.hashPassword = async (password) => {
+   return await bcrypt.hash(password, 10);
+};
 
-userSchema.methods.validatePassword = function (password) {
-    return bcrypt.compareSync(password, this.Password);
-}
+userSchema.methods.validatePassword = async function (password) {
+    return await bcrypt.compare(password, this.Password);
+};
 
 
 export const Movie = model('Movie', movieSchema);

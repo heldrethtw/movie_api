@@ -2,7 +2,7 @@ import express from 'express';
 import { json, urlencoded } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import { ExpressValidator } from 'express-validator';
+import { validationResult } from 'express-validator';
 
 import authRoutes from './routes/auth.js';
 import './passport.js';
@@ -35,7 +35,7 @@ app.use(cors({
     }
 }));
 app.use(morgan('common'));
-app.use(ExpressValidator());
+app.use(validationResult());
 app.use(express.static('public'));
 app.use(json());
 app.use(urlencoded({ extended: true }));
