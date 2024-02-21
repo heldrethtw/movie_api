@@ -35,6 +35,7 @@ app.use(cors({
     }
 }));
 app.use(morgan('common'));
+app.use(ExpressValidator());
 app.use(express.static('public'));
 app.use(json());
 app.use(urlencoded({ extended: true }));
