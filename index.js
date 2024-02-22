@@ -1,27 +1,26 @@
 import express from 'express';
-import { json, urlencoded } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import { validationResult } from 'express-validator';
-
-import authRoutes from './routes/auth.js';
-import './passport.js';
-import { config } from 'dotenv';
+import helmet from 'helmet';
+import config from './config.js';
 import { connect } from 'mongoose';
 import passport from 'passport';
+import { json, urlencoded } from 'express';
+import './passport.js';
+import authRoutes from './routes/auth.js';
 import tmbdRoutes from './routes/tmbdRoutes.js';
 
 
-config();
 
-connect(process.env.MONGO_URI, { 
-    useNewUrlParser: true, useUnifiedTopology: true })
+connect(config.MONGO_URI, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB with Mongoose'))
     .catch(error => console.error('Error connecting to MongoDB:', error));
 
 const app = express();
 
-
+app.use(helmet());
 
 let allowedOrigins = ['http://localhost:3000'];
 app.use(cors({

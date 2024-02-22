@@ -1,11 +1,10 @@
-import { Router } from 'express';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import express from 'express';
 import passport from 'passport';
-
 import { Movie, User, Genre, Director } from '../models.js';
 
-const router = Router();
+
+
+const router = express.Router();
 
 const authenticateJWT = passport.authenticate('jwt', { session: false });
 

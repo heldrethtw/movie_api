@@ -1,10 +1,15 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 import { Movie } from './models.js';
 import moviesData from './movies.json' assert { type: "json" };
 
+dotenv.config();
 
-
-mongoose.connect('mongodb://localhost:27017/donkeyDB');
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true, useUnifiedTopology: true
+})
+    .then(() => console.log('Connected to MongoDB with Mongoose'))
+    .catch(error => console.error('Error connecting to MongoDB:', error));
 
 mongoose.connection.on('error', console.error.bind(console, 'MongoDb connection error:'));
 
