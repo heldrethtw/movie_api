@@ -1,4 +1,4 @@
-// Desc: This file contains the configuration for the application
+
 import dotenv from 'dotenv';
 
 dotenv.config();
