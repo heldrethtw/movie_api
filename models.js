@@ -42,3 +42,5 @@ export const Movie = model('Movie', movieSchema);
 export const User = model('User', userSchema);
 export const Genre = model('Genre', genreSchema);
 export const Director = model('Director', directorSchema);
+
+
