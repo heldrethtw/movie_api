@@ -12,11 +12,22 @@ import tmbdRoutes from './routes/tmbdRoutes.js';
 
 
 
-connect(config.MONGO_URI, { 
-    useNewUrlParser: true, 
-    useUnifiedTopology: true })
-    .then(() => console.log('Connected to MongoDB with Mongoose'))
-    .catch(error => console.error('Error connecting to MongoDB:', error));
+// connect(config.MONGO_URI, { 
+//     useNewUrlParser: true, 
+//     useUnifiedTopology: true })
+//     .then(() => console.log('Connected to MongoDB with Mongoose'))
+//     .catch(error => console.error('Error connecting to MongoDB:', error));
+
+connect(process.env.CONNECTION_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: true
+    }
+    ).then(()=> console.log('Connected to MongoDB with Mongoose'))
+    .catch(error => {
+        return console.error('Error connecting to MongoDB:', error);
+    });
+
 
 const app = express();
 

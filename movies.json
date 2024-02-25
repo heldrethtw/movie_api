@@ -1,62 +1,10 @@
-[
-  {
-      "Title": "Okja",
-      "Description": "A young girl's quest to free her genetically modified pig, which is her best friend, from oppressive corporate authorities.",
-      "Genre": "Action",
-      "Director": "Bong Joon Ho"
-  },
-  {
-      "Title": "Parasite",
-      "Description": "A darkly comic thriller exposing falsehoods that construct class structure.",
-      "Genre": "Drama, Thriller",
-      "Director": "Bong Joon Ho"
-  },
-  {
-      "Title": "Memories of Murder",
-      "Description": "A moody hardboiled detective drama following detectives trying to unravel a serial killer mystery in late 1980s South Korea.",
-      "Genre": "Crime, Thriller",
-      "Director": "Bong Joon Ho"
-  },
-  {
-      "Title": "The Piano",
-      "Description": "A mute who communicates through her piano moves from 19th century England to New Zealand where she has to endure the oppression of an arranged marriage and a highly conflicting relationship with another man.",
-      "Genre": "Drama, Romance",
-      "Director": "Jane Campion"
-  },
-  {
-      "Title": "The Power of the Dog",
-      "Description": "The falsehoods that enforce a certain masculine code of life are ripped open in this tale of revenge and usurpation.",
-      "Genre": "Drama",
-      "Director": "Jane Campion"
-  },
-  {
-      "Title": "No Country for Old Men",
-      "Description": "An increasing chaotic thriller in a lawless Texas following an assassin and an everyday guy through a violent thread of fate.",
-      "Genre": "Crime, Thriller",
-      "Director": "Coen Brothers"
-  },
-  {
-      "Title": "Babadook",
-      "Description": "A disturbing tale about grief and fear endangering a family.",
-      "Genre": "Horror, Thriller",
-      "Director": "Jennifer Kent"
-  },
-  {
-      "Title": "Nightengale",
-      "Description": "Story of a woman's vengeance against British colonial forces in 1820s Tasmania.",
-      "Genre": "Adventure, Drama",
-      "Director": "Jennifer Kent"
-  },
-  {
-      "Title": "The Skin I Live In",
-      "Description": "Horrifying tale of vengeance wherein ethical lines of science and personal identity are blurred.",
-      "Genre": "Drama, Thriller",
-      "Director": "Pedro Almodóvar"
-  },
-  {
-      "Title": "Broken Embraces",
-      "Description": "A blind filmmaker's memory unfolds to reveal the intricate and extremely fragile bonds between people over long periods of time.",
-      "Genre": "Drama, Romance",
-      "Director": "Pedro Almodóvar"
-  }
-]
+{"Title":"Okja","Description":"A young girl's quest to free her genetically modified pig, which is her best friend, from oppressive corporate authorities.","Genre":"Action","Director":"Bong Joon Ho"}
+{"Title":"Parasite","Description":"A darkly comic thriller exposing falsehoods that construct class structure.","Genre":"Drama, Thriller","Director":"Bong Joon Ho"}
+{"Title":"Memories of Murder","Description":"A moody hardboiled detective drama following detectives trying to unravel a serial killer mystery in late 1980s South Korea.","Genre":"Crime, Thriller","Director":"Bong Joon Ho"}
+{"Title":"The Piano","Description":"A mute who communicates through her piano moves from 19th century England to New Zealand where she has to endure the oppression of an arranged marriage and a highly conflicting relationship with another man.","Genre":"Drama, Romance","Director":"Jane Campion"}
+{"Title":"The Power of the Dog","Description":"The falsehoods that enforce a certain masculine code of life are ripped open in this tale of revenge and usurpation.","Genre":"Drama","Director":"Jane Campion"}
+{"Title":"No Country for Old Men","Description":"An increasing chaotic thriller in a lawless Texas following an assassin and an everyday guy through a violent thread of fate.","Genre":"Crime, Thriller","Director":"Coen Brothers"}
+{"Title":"Babadook","Description":"A disturbing tale about grief and fear endangering a family.","Genre":"Horror, Thriller","Director":"Jennifer Kent"}
+{"Title":"Nightengale","Description":"Story of a woman's vengeance against British colonial forces in 1820s Tasmania.","Genre":"Adventure, Drama","Director":"Jennifer Kent"}
+{"Title":"The Skin I Live In","Description":"Horrifying tale of vengeance wherein ethical lines of science and personal identity are blurred.","Genre":"Drama, Thriller","Director":"Pedro Almodóvar"}
+{"Title":"Broken Embraces","Description":"A blind filmmaker's memory unfolds to reveal the intricate and extremely fragile bonds between people over long periods of time.","Genre":"Drama, Romance","Director":"Pedro Almodóvar"}
