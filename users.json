@@ -1,43 +1,10 @@
-[
-    {
-      "Username": "Emily Sharpe",
-      "Email": "emsharpe@example.com",
-      "Birth": "1974-09-21"
-    },
-    {
-      "Username": "Karl Strand",
-      "Email": "Strandman@example.com",
-      "Birth": "1987-02-11"
-    },
-    {
-      "Username": "Gus McAllister",
-      "Email": "Gusamemucho@example.com",
-      "Birth": "1991-01-12"
-    },
-    {
-      "Username": "Sandy Picthings",
-      "Email": "Pitchings@example.com",
-      "Birth": "2001-07-26"
-    },
-    {
-      "Username": "Juan Deleteme",
-      "Email": "getmeoutofhere@example.com",
-      "Birth": "1999-01-01"
-    },
-    {
-      "Username": "Buddy McGee",
-      "Email": "bestbud@example.com",
-      "Birth": "1990-01-01"
-    },
-    {
-      "Username": "totalsleepy",
-      "Email": "edda2666@gmail.com",
-      "Birth": "1972-10-26"
-    },
-    {
-      "Username": "Iraesw",
-      "Email": "buttholedog@haha.com",
-      "Birth": "1974-05-07"
-    }
-  ]
+
+    {"Username": "Emily Sharpe","Email": "emsharpe@example.com","Birth": "1974-09-21"}
+    {"Username": "Karl Strand","Email": "Strandman@example.com","Birth": "1987-02-11"}
+    {"Username": "Gus McAllister","Email": "Gusamemucho@example.com","Birth": "1991-01-12"}
+    {"Username": "Sandy Picthings","Email": "Pitchings@example.com","Birth": "2001-07-26"}
+    {"Username": "Juan Deleteme","Email": "getmeoutofhere@example.com","Birth": "1999-01-01"}
+    {"Username": "Buddy McGee","Email": "bestbud@example.com","Birth": "1990-01-01"}
+    {"Username": "totalsleepy","Email": "edda2666@gmail.com","Birth": "1972-10-26"}
+    {"Username": "Iraesw","Email": "buttholedog@haha.com","Birth": "1974-05-07"}
   
