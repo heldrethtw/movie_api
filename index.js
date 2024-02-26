@@ -18,7 +18,7 @@ import tmbdRoutes from './routes/tmbdRoutes.js';
 //     .then(() => console.log('Connected to MongoDB with Mongoose'))
 //     .catch(error => console.error('Error connecting to MongoDB:', error));
 
-connect(process.env.CONNECTION_URI, {
+connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: true

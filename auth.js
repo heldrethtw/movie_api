@@ -35,7 +35,7 @@ async(req, res) => {
     });
 
     const token = jwt.sign({ Username: newUser.Username }, 
-        config.JWT_SECRET, { expiresIn: '7d' });
+        config.jwtSecret, { expiresIn: '7d' });
 
  
     res.status(201).json({ token, Username: newUser.Username });
