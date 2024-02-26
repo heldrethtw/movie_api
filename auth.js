@@ -6,6 +6,7 @@ import passport from 'passport';
 import { User } from './models.js';
 import config from './config.js';
 
+
 const authRoutes = express.Router();
 
 
@@ -18,32 +19,30 @@ authRoutes.post(
         check('Email', 'Email does not appear to be valid').isEmail(),
     ],
 
-async(req, res) => {
-  
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(422).json({ errors: errors.array() });
+    async (req, res) => {
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }
+        try {
+            let hashedPassword = bcrypt.hashSync(req.body.Password, 12);
+
+            const newUser = await User.create({
+                Username: req.body.Username,
+                Password: hashedPassword,
+                Email: req.body.Email,
+                Birthday: req.body.Birthday
+            });
+
+            const token = jwt.sign({ Username: newUser.Username },
+                config.jwtSecret, { expiresIn: '7d' });
+            res.status(201).json({ token, Username: newUser.Username });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+        }
     }
-   try{
-    let hashedPassword = bcrypt.hashSync(req.body.Password, 12);
-    
-    const newUser = await User.create({
-        Username: req.body.Username,
-        Password: hashedPassword,
-        Email: req.body.Email,
-        Birthday: req.body.Birthday
-    });
-
-    const token = jwt.sign({ Username: newUser.Username }, 
-        config.jwtSecret, { expiresIn: '7d' });
-
- 
-    res.status(201).json({ token, Username: newUser.Username });
-} catch (error) {
-    console.error(error);
-    res.status(500).send('Error: ' + error);
-}
-}
 );
 
 authRoutes.post('/login',
@@ -51,8 +50,8 @@ authRoutes.post('/login',
     (req, res) => {
         const token = jwt.sign(
             { Username: req.user.Username },
-            process.env.JWT_SECRET,
-            { expiresIn: '7d' }
+            config.jwtSecret,
+            { expiresIn: '7d' },
         );
         res.json({ Username: req.user.Username, token });
     }

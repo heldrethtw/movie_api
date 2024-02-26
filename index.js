@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
 import config from './config.js';
+import dotenv from 'dotenv';
 import { connect } from 'mongoose';
 import passport from 'passport';
 import { json, urlencoded } from 'express';
@@ -10,7 +11,8 @@ import './passport.js';
 import authRoutes from './auth.js';
 import tmbdRoutes from './routes/tmbdRoutes.js';
 
-
+config();
+dotenv.config();
 
 // connect(config.MONGO_URI, { 
 //     useNewUrlParser: true, 
