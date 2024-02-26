@@ -2,7 +2,6 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
-import config from './config.js';
 import dotenv from 'dotenv';
 import { connect } from 'mongoose';
 import passport from 'passport';
@@ -20,15 +19,10 @@ dotenv.config();
 //     .then(() => console.log('Connected to MongoDB with Mongoose'))
 //     .catch(error => console.error('Error connecting to MongoDB:', error));
 
-connect(process.env.MONGO_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-        
-    }
-    ).then(()=> console.log('Connected to MongoDB with Mongoose'))
-    .catch(error => {
-        return console.error('Error connecting to MongoDB:', error);
-    });
+const MONGO_URI = process.env.MONGO_URI;
+connect(MONGO_URI)
+    .then(() => console.log('Connected to MongoDB with Mongoose'))
+    .catch(error => console.error('Error connecting to MongoDB:', error));
 
 
 const app = express();
