@@ -7,7 +7,7 @@ import { connect } from 'mongoose';
 import passport from 'passport';
 import { json, urlencoded } from 'express';
 import './passport.js';
-import authRoutes from './routes/auth.js';
+import authRoutes from './auth.js';
 import tmbdRoutes from './routes/tmbdRoutes.js';
 
 
@@ -45,7 +45,7 @@ app.use(cors({
     }
 }));
 app.use(morgan('common'));
-app.use(validationResult());
+//app.use(validationResult());
 app.use(express.static('public'));
 app.use(json());
 app.use(urlencoded({ extended: true }));
