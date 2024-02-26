@@ -44,8 +44,8 @@ app.use(cors({
         return callback(null, true);
     }
 }));
+
 app.use(morgan('common'));
-//app.use(validationResult());
 app.use(express.static('public'));
 app.use(json());
 app.use(urlencoded({ extended: true }));
