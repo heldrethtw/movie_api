@@ -11,7 +11,7 @@ import './passport.js';
 import authRoutes from './auth.js';
 import tmbdRoutes from './routes/tmbdRoutes.js';
 
-config();
+
 dotenv.config();
 
 // connect(config.MONGO_URI, { 
