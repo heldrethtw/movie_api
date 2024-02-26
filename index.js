@@ -19,8 +19,8 @@ dotenv.config();
 //     .then(() => console.log('Connected to MongoDB with Mongoose'))
 //     .catch(error => console.error('Error connecting to MongoDB:', error));
 
-const MONGO_URI = process.env.MONGO_URI;
-connect(MONGO_URI)
+const uri = process.env.MONGO_URI;
+connect(uri) 
     .then(() => console.log('Connected to MongoDB with Mongoose'))
     .catch(error => console.error('Error connecting to MongoDB:', error));
 
