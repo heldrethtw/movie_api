@@ -77,8 +77,7 @@ Performing Actions
 
   3)Deleting a User: Send a DELETE request to /api/tmbd/users/:username.
 
-Notes
+Note
 Ensure all API requests are made over HTTPS.
-Replace placeholders with actual values.
-For further assistance or queries, please contact our support team.
+
 
