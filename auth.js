@@ -1,13 +1,18 @@
 import express from 'express';
+
 import { check, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import { User } from './models.js';
 import config from './config.js';
+import dotenv from 'dotenv';
 
+dotenv.config();
 
 const authRoutes = express.Router();
+
+
 
 
 authRoutes.post(
@@ -20,7 +25,6 @@ authRoutes.post(
     ],
 
     async (req, res) => {
-
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() });
@@ -35,9 +39,11 @@ authRoutes.post(
                 Birthday: req.body.Birthday
             });
 
+           
+
             const token = jwt.sign({ Username: newUser.Username },
-                config.jwtSecret, { expiresIn: '7d' });
-            res.status(201).json({ token, Username: newUser.Username });
+                process.env.JWT_SECRET, { expiresIn: '7d' });
+            res.status(201).json({ token, Username: req.user.Username });
         } catch (error) {
             console.error(error);
             res.status(500).send('Error: ' + error);
@@ -50,7 +56,7 @@ authRoutes.post('/login',
     (req, res) => {
         const token = jwt.sign(
             { Username: req.user.Username },
-            config.jwtSecret,
+            process.env.JWT_SECRET,
             { expiresIn: '7d' },
         );
         res.json({ Username: req.user.Username, token });
