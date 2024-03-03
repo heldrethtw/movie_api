@@ -5,7 +5,7 @@ Getting started as a new user:
 
 SIGNING UP
 
-Endpoint: /api/auth/users
+Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/auth/users
 Method: POST
 Body:
 {
@@ -18,7 +18,7 @@ This is to register a new user account. All fields required.
 
 LOG-IN:
 
-Endpoint: /api/auth/login
+Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/auth/login
 Method: POST
 Body:{
   "Username": "yourUsername",
@@ -28,7 +28,7 @@ Authenticate and receive a JWT token for accessing protected routes.
 
 Movies
   1)Fetch All Movies
-  Endpoint: /api/tmbd/movies
+  Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/movies
   Method: GET
   Authentication: Required (JWT token)
   
@@ -38,35 +38,35 @@ Movies
   Authentication: Required
   
   3)Fetch Movie by Title
-  Endpoint: /api/tmbd/movies/title/:title
+  Endpoint: https://donkey-archive-af41e8314602.herokuapp.com /api/tmbd/movies/title/:title
   Method: GET
   Authentication: Required
   
   4)Fetch Movies by Director
-  Endpoint: /api/tmbd/movies/director/:director
+  Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/movies/director/:director
   Method: GET
   Authentication: Required
   
 Users
   1)Fetch All Users
-  Endpoint: /api/tmbd/users
+  Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/users
   Method: GET
   Authentication: Required
   
   2)Fetch User by Username
-  Endpoint: /api/tmbd/users/:username
+  Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/users/:username
   Method: GET
   Authentication: Required
   
 Genres
   1)Fetch All Genres
-  Endpoint: /api/tmbd/genres
+  Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/genres
   Method: GET
   Authentication: Required
   
 Directors
   1)Fetch All Directors
-  Endpoint: /api/tmbd/directors
+  Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/directors
   Method: GET
   Authentication: Required
 
