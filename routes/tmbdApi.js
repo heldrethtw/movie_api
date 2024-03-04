@@ -9,8 +9,9 @@ async function searchMovies(title) {
 }
 
 async function fetchMovieDetails(movieID) {
-    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${apiKey}`);
+    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${TMBD_API_KEY}`);
     return response.data;
 }
+
 
 export {searchMovies, fetchMovieDetails};

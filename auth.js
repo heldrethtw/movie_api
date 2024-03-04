@@ -5,7 +5,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import { User } from './models.js';
-import config from './config.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
