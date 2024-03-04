@@ -39,17 +39,16 @@ passport.use(new JwtStrategy({
 },
     async (jwtPayload, done) => {
         try {
-            
-            const user = await User.findById(jwtPayload.Username);
+            const user = await User.findById(jwtPayload._Id);
             if (user) {
-                console.log("User found:",user);
+                console.log("User found:", user);
                 return done(null, user);
             } else {
-                console.log("User not found:",user);
+                console.log("User not found:", user);
                 return done(null, false);
             }
         } catch (error) {
-            console.log("Error:",error);
+            console.log("Error:", error);
             return done(error);
         }
     }));

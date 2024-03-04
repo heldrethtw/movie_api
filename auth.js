@@ -38,9 +38,11 @@ authRoutes.post(
                 Birthday: req.body.Birthday
             });
 
-           
 
-            const token = jwt.sign({ Username: newUser.Username },
+
+            const token = jwt.sign({
+                _id: newUser._id, Username: newUser.Username
+            },
                 process.env.JWT_SECRET, { expiresIn: '7d' });
             res.status(201).json({ token, Username: req.user.Username });
         } catch (error) {
@@ -54,7 +56,7 @@ authRoutes.post('/login',
     passport.authenticate('local', { session: false }),
     (req, res) => {
         const token = jwt.sign(
-            { Username: req.user.Username },
+            { _id: req.user._id, Username: req.user.Username},
             process.env.JWT_SECRET,
             { expiresIn: '7d' },
         );
