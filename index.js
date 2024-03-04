@@ -30,7 +30,7 @@ const app = express();
 
 app.use(helmet());
 
-let allowedOrigins = ['http://localhost:3000'];
+let allowedOrigins = ['http://localhost:3000', 'https://donkey-archive.herokuapp.com'];
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
