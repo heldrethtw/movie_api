@@ -50,7 +50,7 @@ app.use(passport.initialize());
 
 app.get('/', (req, res) => {
     res.json({
-        message: 'Server is running! Welcome to the Movie API!'
+        message: 'Server is running! Welcome to the Donkey Archive!'
     });
 });
 
