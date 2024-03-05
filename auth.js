@@ -1,5 +1,4 @@
 import express from 'express';
-
 import { check, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -40,11 +39,11 @@ authRoutes.post(
 
 
 
-            const token = jwt.sign({
-                _id: newUser._id, Username: newUser.Username
-            },
-                process.env.JWT_SECRET, { expiresIn: '7d' });
-            res.status(201).json({ token, Username: req.user.Username });
+            const token = jwt.sign(
+                { id: newUser._id },
+                process.env.JWT_SECRET,
+                { expiresIn: '7d' });
+            res.status(201).json({ token, Username: newUser.Username });
         } catch (error) {
             console.error(error);
             res.status(500).send('Error: ' + error);
@@ -56,7 +55,7 @@ authRoutes.post('/login',
     passport.authenticate('local', { session: false }),
     (req, res) => {
         const token = jwt.sign(
-            { _id: req.user._id, Username: req.user.Username},
+            { _id: req.user._id },
             process.env.JWT_SECRET,
             { expiresIn: '7d' },
         );

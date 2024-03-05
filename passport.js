@@ -39,7 +39,7 @@ passport.use(new JwtStrategy({
 },
     async (jwtPayload, done) => {
         try {
-            const user = await User.findById(jwtPayload._Id);
+            const user = await User.findById(jwtPayload._id);
             if (user) {
                 console.log("User found:", user);
                 return done(null, user);

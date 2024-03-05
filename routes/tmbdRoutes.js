@@ -71,7 +71,7 @@ router.get('/movies/director/:director', authenticateJWT,
     async (req, res) => {
         const { director } = req.params;
         try {
-            const movies = await Movie.findOne({ "Director": director });
+            const movies = await Movie.find({ "Director": director });
             if (movies.length) {
                 res.json(movies);
             } else {
@@ -138,7 +138,7 @@ router.get('/movies/genre/:genre', authenticateJWT,
             if (movies.length) {
                 res.json(movies);
             } else {
-                res.status(404).send('Movies not found for the genre ' + genreName);
+                res.status(404).send('Movies not found for the genre ' + genre);
             }
         } catch (err) {
             console.error(err);
@@ -181,7 +181,7 @@ router.put('/users/:username', authenticateJWT,
     async (req, res) => {
         try {
             const updatedUser = await User.findOneAndUpdate(
-                { Username: req.params },
+                { Username: req.params.username },
                 req.body,
                 { new: true }
             );
