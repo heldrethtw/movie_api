@@ -54,7 +54,7 @@ authRoutes.post(
 authRoutes.post('/login',
     passport.authenticate('local', { session: false }),
     (req, res) => {
-        console.log(process.env.JWT_SECRET)
+        
         const token = jwt.sign(
             { _id: req.user._id },
             process.env.JWT_SECRET,
