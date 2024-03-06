@@ -40,7 +40,7 @@ authRoutes.post(
 
 
             const token = jwt.sign(
-                { id: newUser._id },
+                { _id: newUser._id },
                 process.env.JWT_SECRET,
                 { expiresIn: '7d' });
             res.status(201).json({ token, Username: newUser.Username });
