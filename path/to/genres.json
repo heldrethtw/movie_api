@@ -1,0 +1,4 @@
+{"_id":{"$oid":"65abf76f9ac7127650df374e"},"Name":"Thriller","Description":"A film with a plot driven by exciting events."}
+{"_id":{"$oid":"65abf9049ac7127650df374f"},"Name":"Horror","Description":"Createrd to invoke fear, usually through either superntaural events or psychological disturbance."}
+{"_id":{"$oid":"65abf9ae9ac7127650df3750"},"Name":"Comedy","Description":"Focused on making the audience laugh by relying on satire,absurdity and socially odd situations and behavior."}
+{"_id":{"$oid":"65abfab29ac7127650df3751"},"Name":"Action","Description":"A movie with a multitude of explosive, fast moving events most commonly depicting sorts of battles."}

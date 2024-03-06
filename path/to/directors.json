@@ -1,0 +1,5 @@
+{"_id":{"$oid":"65abddf49ac7127650df3749"},"_ID":"director1","name":"Bong Joon Ho","Name":"Bong Joon Ho","Bio":"Oscar winning South Korean director and screenwriter.","Birth":"09-014-1969","Death":"Still living."}
+{"_id":{"$oid":"65abdf1f9ac7127650df374a"},"Name":"Jane Campion","Bio":"New Zealand director and screenwriter.","Birth":"1954-04-30","Death":"Null","_ID":"director2"}
+{"_id":{"$oid":"65abe0189ac7127650df374b"},"Name":"Joel Coen","Bio":"American director and screenwriter.","Birth":"1954-11-29","Death":"Null","_ID":"director3"}
+{"_id":{"$oid":"65abf2269ac7127650df374c"},"Name":"Jennifer Kent","Bio":"Australian director and screenwriter.","Birth":"1969-09-14","Death":"Null","_ID":"director4"}
+{"_id":{"$oid":"65abf6319ac7127650df374d"},"Name":"Pedro Almodovar","Bio":" Spanish director and screenwriter","Birth":"1949-09-25","Death":"Null","_ID":"director5"}
