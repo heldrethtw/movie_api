@@ -26,11 +26,13 @@ let userSchema = new Schema({
     Password: { type: String, required: true },
     Email: { type: String, required: true },
     Birth: Date,
-    Favorites: [{ type: Schema.Types.ObjectId, ref: 'Movie' }]
+    Favorites: [{ type: Schema.Types.ObjectId, ref: 'Movie' }],
+    Suggestions: [{ type: Schema.Types.ObjectId, ref: 'Movie' }],
+    Role: { type: String, default: 'user' }
 });
 
 userSchema.statics.hashPassword = async (password) => {
-   return await bcrypt.hash(password, 10);
+    return await bcrypt.hash(password, 10);
 };
 
 userSchema.methods.validatePassword = async function (password) {
