@@ -65,6 +65,16 @@ authRoutes.post('/login',
     }
 );
 
+authRoutes.get('/user', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).select('-Password -Email');
+        res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error fetching user information.');
+    }
+});
+
 authRoutes.post('/users/:username/movies/:movieId/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
     const { username, movieId } = req.params;
     try {
