@@ -75,6 +75,19 @@ authRoutes.get('/user', passport.authenticate('jwt', { session: false }), async 
     }
 });
 
+authRoutes.get('/users/:username', async (req, res) => {
+    try {
+        const user = await User.findOne({ Username: req.params.username }).select('Username Favorites');
+        if (!user) {
+            return res.status(404).send('User not found.');
+        }
+        res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error fetching user information.');
+    }
+});
+
 authRoutes.post('/users/:username/movies/:movieId/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
     const { username, movieId } = req.params;
     try {
