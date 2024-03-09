@@ -21,7 +21,7 @@ dotenv.config();
 //     .catch(error => console.error('Error connecting to MongoDB:', error));
 
 const uri = process.env.MONGO_URI;
-connect(uri) 
+connect(uri)
     .then(() => console.log('Connected to MongoDB with Mongoose'))
     .catch(error => console.error('Error connecting to MongoDB:', error));
 
@@ -64,7 +64,7 @@ app.use((err, req, res, next) => {
 
 
 const port = process.env.PORT || 3000;
-app.listen(port, '0.0.0.0',() => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`Your app is listening on port ${port}.`);
 });
 

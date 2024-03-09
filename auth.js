@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import { User } from './models.js';
 import dotenv from 'dotenv';
+import express from 'express';
 
 dotenv.config();
 
@@ -54,7 +55,7 @@ authRoutes.post(
 authRoutes.post('/login',
     passport.authenticate('local', { session: false }),
     (req, res) => {
-        
+
         const token = jwt.sign(
             { _id: req.user._id },
             process.env.JWT_SECRET,
@@ -63,5 +64,80 @@ authRoutes.post('/login',
         res.json({ Username: req.user.Username, token });
     }
 );
+
+authRoutes.post('/users/:username/movies/:movieId/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    const { username, movieId } = req.params;
+    try {
+        const user = await User.findOne({ Username: username });
+        if (!user) {
+            return res.status(400).send('User not found.');
+        }
+        if (!user.Favorites.includes(movieId)) {
+            user.Favorites.push(movieId);
+            await user.save();
+            res.status(200).send('Favorite added.');
+        } else {
+            res.status(400).send('Movie already in favorites.');
+        }
+    } catch (error) {
+        console.error('Error adding favorite:', error);
+        res.status(500).send('Error adding favorite.');
+    }
+});
+
+authRoutes.get('users/:username/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    const { username } = req.params;
+    try {
+        const user = await User.findOne({ Username: username }).populate('Favorites');
+        if (!user) {
+            return res.status(400).send('User not found.');
+        }
+        res.status(200).send(user.Favorites);
+    } catch (error) {
+        console.error('Error getting favorites:', error);
+        res.status(500).send('Error getting favorites.');
+    }
+});
+
+authRoutes.get('users/:username/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    const { username } = req.params;
+    try {
+        const user = await User.findOne({ Username: username }).populate('Favorites');
+        if (!user) {
+            return res.status(400).send('User not found.');
+        }
+        res.json(user.Favorites);
+    } catch (error) {
+        console.error('Error getting favorites:', error);
+        res.status(500).send('Error getting favorites.');
+    }
+});
+
+// Endpoint to update user profile
+authRoutes.put('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    const { username } = req.params;
+    const { Password, ...updateData } = req.body; // Password is handled separately
+
+    try {
+        const user = await User.findOne({ Username: username });
+        if (!user) {
+            return res.status(400).send('User not found.');
+        }
+        if (Password) {
+            const hashedPassword = await bcrypt.hash(Password, 12);
+            user.Password = hashedPassword;
+        }
+
+        Object.keys(updateData).forEach((key) => {
+            user[key] = updateData[key];
+        });
+        await user.save();
+        res.status(200).send('User updated successfully.');
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).send('Error updating user.');
+    }
+});
+
 
 export default authRoutes;
