@@ -88,6 +88,25 @@ authRoutes.get('/users/:username', async (req, res) => {
     }
 });
 
+authRoutes.post('/users/:username/suggestions', passport.authenticate('jwt', { session: false }), async (req, res) => {
+
+    const { movieId } = req.body;
+    try {
+        const user = await User.findOneAndUpdate(
+            { Username: req.params.username },
+            { $push: { Suggestions: movieId } },
+            { new: true }
+        );
+        if (!user) {
+            return res.status(404).send('User not found.');
+        }
+        res.status(200).send('Suggestion added successfully.');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error adding suggestion.');
+    }
+});
+
 authRoutes.post('/users/:username/movies/:movieId/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
     const { username, movieId } = req.params;
     try {
