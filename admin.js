@@ -1,5 +1,5 @@
 import express from 'express';
-import { User, Movie, Director, Genre } from './models.js';
+import { User, Movie, Director, Genre } from './models/schemas.js';
 import { authenticateJWT } from './auth.js';
 
 

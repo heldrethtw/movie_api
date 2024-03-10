@@ -1,6 +1,6 @@
 import express from 'express';
 import passport from 'passport';
-import { Movie, User, Genre, Director } from '../models.js';//might remove user
+import { Movie, User, Genre, Director } from '../models/schemas.js';//might remove user
 import { authenticateJWT } from '../auth.js';
 
 

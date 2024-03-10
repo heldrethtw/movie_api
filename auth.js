@@ -3,8 +3,9 @@ import { check, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
-import { User } from './models.js';
+import { User } from './models/schemas.js';
 import dotenv from 'dotenv';
+import tokenBlacklist from './models/tokenBlacklist.js';
 
 
 dotenv.config();
@@ -42,7 +43,7 @@ authRoutes.post(
             const token = jwt.sign(
                 {
                     _id: newUser._id,
-                    role: User.Role
+                    Role: User.Role
                 },
                 process.env.JWT_SECRET,
                 { expiresIn: '7d' });
@@ -61,7 +62,7 @@ authRoutes.post('/login',
         const token = jwt.sign(
             {
                 _id: req.user._id,
-                role: User.Role
+                Role: User.Role
             },
             process.env.JWT_SECRET,
             { expiresIn: '7d' },
@@ -69,6 +70,17 @@ authRoutes.post('/login',
         res.json({ Username: req.user.Username, token });
     }
 );
+
+authRoutes.post('/logout', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        await tokenBlacklist.create({ Token: token });
+        res.status(200).json('Logged out successfully.');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error logging out.');
+    }
+});
 
 authRoutes.get('/user', passport.authenticate('jwt', { session: false }), async (req, res) => {
     try {

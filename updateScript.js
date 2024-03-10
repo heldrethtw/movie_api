@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import { Movie } from './models.js';
+import { Movie } from './models/schemas.js';
 import moviesData from './movies.json' assert { type: "json" };
 
 dotenv.config();
@@ -14,14 +14,14 @@ mongoose.connect(process.env.MONGO_URI, {
 mongoose.connection.on('error', console.error.bind(console, 'MongoDb connection error:'));
 
 async function importMovies() {
-    try{
-        for(const movieItem of moviesData) {
+    try {
+        for (const movieItem of moviesData) {
             const movie = new Movie(movieItem);
             await movie.save();
         }
         console.log('Movies imported');
 
-    } catch(error) {
+    } catch (error) {
         console.error('Error importing movies:', error);
     } finally {
         mongoose.disconnect();

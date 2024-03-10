@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
-import { User } from './models.js';
+import { User } from './models/schemas.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -39,7 +39,7 @@ passport.use(new JwtStrategy({
 },
     async (jwtPayload, done) => {
         try {
-           
+
             const user = await User.findById(jwtPayload._id);
             if (user) {
                 console.log("User found:", user);
