@@ -1,5 +1,6 @@
 Welcome to the Donkey Archive, a movie database API. This document will show you how to interact with the API. It will show you how to sign up, sign in and request movie data.
 
+`````json
 Getting started as a new user:
 
 SIGNING UP
@@ -13,7 +14,7 @@ Body:
 "Email": "yourEmail@example.com",
 "Birthday": "YYYY-MM-DD"
 }
-This is to register a new user account. All fields are required.
+Note: This is to register a new user account. All fields are required.
 
 LOG-IN:
 
@@ -23,7 +24,7 @@ Body:{
 "Username": "yourUsername",
 "Password": "yourPassword"
 }
-Authenticate and receive a JWT token for accessing protected routes.
+Note: Authenticate and receive a JWT token for accessing protected routes.
 
 Movies
 1)Fetch All Movies
@@ -32,41 +33,7 @@ Method: GET
 Authentication: Required (JWT token)
 
 2)Fetch Movie by ID
-Endpoint: Welcome to the Donkey Archive, a movie database API. This document will show you how to interact with the API. It will show you how to sign up, sign in and request movie data.
-
-Getting started as a new user:
-
-SIGNING UP
-
-Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/auth/users
-Method: POST
-Body:
-{
-"Username": "desiredUsername",
-"Password": "yourPassword",
-"Email": "yourEmail@example.com",
-"Birthday": "YYYY-MM-DD"
-}
-This is to register a new user account. All fields are required.
-
-LOG-IN:
-
-Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/auth/login
-Method: POST
-Body:{
-"Username": "yourUsername",
-"Password": "yourPassword"
-}
-Authenticate and receive a JWT token for accessing protected routes.
-
-Movies
-1)Fetch All Movies
-Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/movies
-Method: GET
-Authentication: Required (JWT token)
-
-2)Fetch Movie by ID
-Endpoint: /api/tmbd/movies/:id
+Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/movies/:id
 Method: GET
 Authentication: Required
 
@@ -79,6 +46,10 @@ Authentication: Required
 Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/movies/director/:director
 Method: GET
 Authentication: Required
+
+5)Create a New Movie
+Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/movies
+Method: Post
 
 Users
 1)Fetch All Users
@@ -105,9 +76,9 @@ Retrieves the list of favorite movies for the specified user. This endpoint is o
 
 5)Adding Movie Suggestions
 Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/auth/users/:username/suggestions
-**Body**
+Body
 
-`````json
+```json
 {
   "movieID": "theMovieIdToSuggest"
 }

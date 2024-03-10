@@ -9,6 +9,7 @@ import { json, urlencoded } from 'express';
 import './passport.js';
 import authRoutes from './auth.js';
 import tmbdRoutes from './routes/tmbdRoutes.js';
+import adminRoutes from './admin.js';
 
 passport.initialize();
 dotenv.config();
@@ -29,6 +30,7 @@ connect(uri)
 const app = express();
 
 app.use(helmet());
+app.use('/api/admin', adminRoutes);
 
 let allowedOrigins = ['http://localhost:3000', 'https://donkey-archive-af41e8314602.herokuapp.com'];
 app.use(cors({

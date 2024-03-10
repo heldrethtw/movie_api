@@ -11,9 +11,6 @@ dotenv.config();
 
 const authRoutes = express.Router();
 
-
-
-
 authRoutes.post(
     '/users',
     [
@@ -37,8 +34,6 @@ authRoutes.post(
                 Email: req.body.Email,
                 Birthday: req.body.Birthday
             });
-
-
 
             const token = jwt.sign(
                 { _id: newUser._id },

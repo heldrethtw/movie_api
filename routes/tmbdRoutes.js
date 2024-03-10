@@ -1,6 +1,6 @@
 import express from 'express';
 import passport from 'passport';
-import { Movie, User, Genre, Director } from '../models.js';
+import { Movie, User, Genre, Director } from '../models.js';//might remove user
 
 
 
@@ -83,52 +83,29 @@ router.get('/movies/director/:director', authenticateJWT,
         }
     });
 
-// Update a movie
-router.put('/movies/:id', authenticateJWT,
-    async (req, res) => {
-        try {
-            const updatedMovie = await Movie.findByIdAndUpdate(
-                req.params.id,
-                req.body,
-                { new: true }
-            );
-            res.json(updatedMovie);
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Error: ' + err);
+router.put('/movies/:id', authenticateJWT, async (req, res) => {
+    const { id } = req.params;
+    const { newGenre, newDescription } = req.body;
+    const movie = await Movie.findById(id);
+    try {
+        if (!movie) {
+            return res.status(404).send('Movie not found');
         }
-    });
-
-// Change movie description
-router.put('/movies/:id/description', authenticateJWT,
-    async (req, res) => {
-        try {
-            const updatedMovie = await Movie.findByIdAndUpdate(
-                req.params.id,
-                { $set: { Description: req.body.Description } },
-                { new: true }
-            );
-            res.json(updatedMovie);
+        if (newGenre && typeof newGenre === 'string') {
+            movie.Genre = newGenre;
         }
-        catch (err) {
-            console.error(err);
-            res.status(500).send('Error: ' + err);
+        if (newDescription && typeof newDescription === 'string') {
+            movie.Description = newDescription;
         }
-    });
 
 
-
-// Delete a movie
-router.delete('/movies/:id', authenticateJWT,
-    async (req, res) => {
-        try {
-            await Movie.findByIdAndDelete(req.params.id);
-            res.send('Movie deleted');
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Error: ' + err);
-        }
-    });
+        await movie.save();
+        res.json(movie);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error updating movie: ' + err);
+    }
+});
 //Get a movie by genre
 router.get('/movies/genre/:genre', authenticateJWT,
     async (req, res) => {
@@ -143,19 +120,6 @@ router.get('/movies/genre/:genre', authenticateJWT,
         } catch (err) {
             console.error(err);
             res.status(500).send('Error: ' + err);
-        }
-    });
-
-
-// Get all users
-router.get('/users', authenticateJWT,
-    async (req, res) => {
-        try {
-            const users = await User.find();
-            res.json(users);
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Internal server error');
         }
     });
 
@@ -216,17 +180,7 @@ router.put('/users/:username/add-favorite/:movieID', authenticateJWT,
     }
 );
 
-// Delete a user
-router.delete('/users/:username', authenticateJWT,
-    async (req, res) => {
-        try {
-            await User.findOneAndDelete({ Username: req.params.username });
-            res.send(`User ${req.params.username} deleted`);
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Error: ' + err);
-        }
-    });
+
 //delete a user favorite movie
 router.delete('/users/:username/favorites/:movieID', authenticateJWT,
     async (req, res) => {
@@ -321,18 +275,6 @@ router.put('/genres/:id', authenticateJWT,
         }
     });
 
-// Delete a genre
-router.delete('/genres/:id', authenticateJWT,
-    async (req, res) => {
-        try {
-            await Genre.findByIdAndDelete(req.params.id);
-            res.send('Genre deleted');
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Error: ' + err);
-        }
-    });
-
 // Create a new director
 router.post('/directors', authenticateJWT,
     async (req, res) => {
@@ -390,16 +332,6 @@ router.put('/directors/:id', authenticateJWT,
         }
     });
 
-// Delete a director
-router.delete('/directors/:id', authenticateJWT,
-    async (req, res) => {
-        try {
-            await Director.findByIdAndDelete(req.params.id);
-            res.send('Director deleted');
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Error: ' + err);
-        }
-    });
+
 
 export default router;
