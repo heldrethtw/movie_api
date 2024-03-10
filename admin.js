@@ -6,15 +6,6 @@ import { authenticateJWT } from './auth.js';
 
 const adminRouter = express.Router();
 
-function authenticateJWT(req, res, next) {
-    passport.authenticate('jwt', { session: false }, (error, user, info) => {
-        if (err || !user) {
-            return res.status(403).send('Access denied');
-        }
-        req.user = user;
-        next();
-    })(req, res, next);
-}
 
 // middleware to check for admin role
 function isAdmin(req, res, next) {
@@ -88,7 +79,7 @@ adminRouter.delete('/directors/:id', authenticateJWT,
     });
 
 // Update a movie
-adminRouter.put('/movies/:id', authenticateJWT,
+outer.put('/movies/:id', authenticateJWT,
     async (req, res) => {
         try {
             const updatedMovie = await Movie.findByIdAndUpdate(
