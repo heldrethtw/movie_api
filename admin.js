@@ -79,7 +79,7 @@ adminRouter.delete('/directors/:id', authenticateJWT,
     });
 
 // Update a movie
-outer.put('/movies/:id', authenticateJWT,
+adminRouter.put('/movies/:id', authenticateJWT,
     async (req, res) => {
         try {
             const updatedMovie = await Movie.findByIdAndUpdate(
