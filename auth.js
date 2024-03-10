@@ -9,7 +9,13 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+import './passport.js';
+
+export const authenticateJWT = passport.authenticate('jwt', { session: false });
+
 const authRoutes = express.Router();
+
+const authenticateJWT = passport.authenticate('jwt', { session: false });
 
 authRoutes.post(
     '/users',

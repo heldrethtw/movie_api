@@ -1,12 +1,12 @@
 import express from 'express';
 import passport from 'passport';
 import { Movie, User, Genre, Director } from '../models.js';//might remove user
-
+import { authenticateJWT } from '../auth.js';
 
 
 const router = express.Router();
 
-const authenticateJWT = passport.authenticate('jwt', { session: false });
+
 
 // Create a new movie
 router.post('/movies', authenticateJWT,
