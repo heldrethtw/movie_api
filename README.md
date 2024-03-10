@@ -12,7 +12,7 @@ Body:
 "Username": "desiredUsername",
 "Password": "yourPassword",
 "Email": "yourEmail@example.com",
-"Birthday": "YYYY-MM-DD"
+"Birth": "YYYY-MM-DD"
 }
 Note: This is to register a new user account. All fields are required.
 
