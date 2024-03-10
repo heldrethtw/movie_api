@@ -1,5 +1,4 @@
 import express from 'express';
-import passport from 'passport';
 import { User, Movie, Director, Genre } from './models.js';
 import { authenticateJWT } from './auth.js';
 
