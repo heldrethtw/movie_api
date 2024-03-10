@@ -40,7 +40,10 @@ authRoutes.post(
             });
 
             const token = jwt.sign(
-                { _id: newUser._id },
+                {
+                    _id: newUser._id,
+                    role: User.Role
+                },
                 process.env.JWT_SECRET,
                 { expiresIn: '7d' });
             res.status(201).json({ token, Username: newUser.Username });
@@ -56,7 +59,10 @@ authRoutes.post('/login',
     (req, res) => {
 
         const token = jwt.sign(
-            { _id: req.user._id },
+            {
+                _id: req.user._id,
+                role: User.Role
+            },
             process.env.JWT_SECRET,
             { expiresIn: '7d' },
         );
