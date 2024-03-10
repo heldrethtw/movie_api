@@ -26,6 +26,20 @@ Body:{
 }
 Note: Authenticate and receive a JWT token for accessing protected routes.
 
+Log Out:
+
+Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api.auth/logout
+Method: POST
+Request Headers:
+Authorization: Bearer Token
+Success response:
+Code: 200 OK
+Content: 'Logged out successfully.'
+Error Response:
+Code: 500 Internal Server Error
+Content: Error message indicating the reason for failure.
+
+
 Movies(Creating, Viewing and managing Movies)
 
 1)Fetch All Movies
