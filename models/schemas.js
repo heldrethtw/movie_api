@@ -5,7 +5,9 @@ let movieSchema = new Schema({
     Title: { type: String, required: true },
     Description: { type: String, required: true },
     Genre: { type: String, required: true },
-    Director: { type: String, required: true }
+    Director: { type: String, required: true },
+    NewGenre: [{ type: String, required: false }],
+    NewDescription: [{ type: String, required: false }]
 });
 
 

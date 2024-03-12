@@ -210,23 +210,26 @@ authRoutes.put('/api/tmbd/movies/:id', passport.authenticate('jwt', { session: f
     const { id } = req.params;
     const { newGenre, newDescription } = req.body;
     try {
-        const movie = await movie.findByIdAndUpdate(
-            id,
-            req.body
-        );
-        if (!movie) {
-            return res.status(404).send('Movie not found');
+        const update = {};
+        if (newGenre) {
+            update.$push = { NewGenre: newGenre };
         }
-        if (newGenre && typeof newGenre === 'string') {
-            movie.Genre = newGenre;
+        if (newDescription) {
+            update.$push = { ...update.$push, NewDescription: newDescription };
+
+            const updatedMovie = await Movie.findByIdAndUpdate(
+                id,
+                update,
+                { new: true }
+            );
+
         }
-        if (newDescription && typeof newDescription === 'string') {
-            movie.Description = newDescription;
+        if (!updatedMovie) {
+            return res.status(404).send('Movie not found.');
         }
-        const updatedMovie = await movie.save();
         res.json(updatedMovie);
     } catch (error) {
-        console.error('Error updating movie:', error);
+        console.error('Update Movie Error:', error);
         res.status(500).send('Error updating movie.');
     }
 });
