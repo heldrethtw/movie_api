@@ -208,14 +208,14 @@ authRoutes.put('/users/:username', passport.authenticate('jwt', { session: false
 
 authRoutes.put('/api/tmbd/movies/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
     const { id } = req.params;
-    const { newGenre, newDescription } = req.body;
+    const { newGenres, newDescriptions } = req.body;
     try {
         const update = {};
-        if (newGenre && newGenre.length) {
-            update.$push = { NewGenres: { $each: newGenre } };
+        if (newGenres && newGenres.length) {
+            update.$push = { NewGenres: { $each: newGenres } };
         }
         if (newDescription && newDescription.length) {
-            update.$push = { ...update.$push, NewDescriptions: { $each: newDescription } };
+            update.$push = { ...update.$push, NewDescriptions: { $each: newDescriptions } };
 
             const updatedMovie = await Movie.findByIdAndUpdate(
                 id,
