@@ -74,7 +74,15 @@ authRoutes.post('/login',
 authRoutes.post('/logout', passport.authenticate('jwt', { session: false }), async (req, res) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
-        await tokenBlacklist.create({ Token: token });
+        const decodedToken = jwt.decode(token);
+        if (!decodedToken) {
+            return res.status(400).send('Invalid token.');
+        }
+        const expiresAt = new Date(decodedToken.exp * 1000);
+        await tokenBlacklist.create({
+            Token: token,
+            expiresAt: expiresAt
+        });
         res.status(200).json('Logged out successfully.');
     } catch (error) {
         console.error(error);
