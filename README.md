@@ -71,6 +71,13 @@ Authentication: Required
 Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/movies
 Method: Post
 Authentication: required
+Body:
+{
+  "Title": "example of a title",
+  "Description": "describe",
+  "Genre": "type of genre",
+  "Director": "name of director"
+}
 
 7)Update a Movie's Genre or Description
 Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/movies/:id
