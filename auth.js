@@ -80,7 +80,7 @@ authRoutes.post('/logout', passport.authenticate('jwt', { session: false }), asy
         }
         const expiresAt = new Date(decodedToken.exp * 1000);
         await tokenBlacklist.create({
-            Token: token,
+            token: token,
             expiresAt: expiresAt
         });
         res.status(200).json('Logged out successfully.');
