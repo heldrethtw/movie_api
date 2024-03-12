@@ -211,11 +211,11 @@ authRoutes.put('/api/tmbd/movies/:id', passport.authenticate('jwt', { session: f
     const { newGenre, newDescription } = req.body;
     try {
         const update = {};
-        if (newGenre) {
-            update.$push = { NewGenre: newGenre };
+        if (newGenre && newGenre.length) {
+            update.$push = { $each: newGenre };
         }
-        if (newDescription) {
-            update.$push = { ...update.$push, NewDescription: newDescription };
+        if (newDescription && newDescription.length) {
+            update.$push = { ...update.$push, NewDescription: { $each: newDescription } };
 
             const updatedMovie = await Movie.findByIdAndUpdate(
                 id,
