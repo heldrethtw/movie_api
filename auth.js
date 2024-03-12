@@ -214,16 +214,19 @@ authRoutes.put('/api/tmbd/movies/:id', passport.authenticate('jwt', { session: f
         if (newGenres && newGenres.length) {
             update.$push = { NewGenres: { $each: newGenres } };
         }
-        if (newDescription && newDescription.length) {
+        if (newDescriptions && newDescriptions.length) {
             update.$push = { ...update.$push, NewDescriptions: { $each: newDescriptions } };
 
-            const updatedMovie = await Movie.findByIdAndUpdate(
+            (
                 id,
                 update,
                 { new: true }
             );
 
         }
+
+        updatedMovie = await Movie.findByIdAndUpdate(id, update, { new: true });
+
         if (!updatedMovie) {
             return res.status(404).send('Movie not found.');
         }
