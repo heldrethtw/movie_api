@@ -109,9 +109,9 @@ router.put('/movies/:id', authenticateJWT, async (req, res) => {
 //Get a movie by genre
 router.get('/movies/genre/:genre', authenticateJWT,
     async (req, res) => {
-        const { genre } = req.params.trim();
+        const { genre } = req.params;
         try {
-            const movies = await Movie.find({ "Genre": new RegExp(genre, 'i') });
+            const movies = await Movie.find({ "Genre": genre });
             if (movies.length) {
                 res.json(movies);
             } else {
