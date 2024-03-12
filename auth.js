@@ -215,14 +215,10 @@ authRoutes.put('/api/tmbd/movies/:id', passport.authenticate('jwt', { session: f
             update.$push = { NewGenres: { $each: newGenres } };
         }
         if (newDescriptions && newDescriptions.length) {
-            update.$push = { ...update.$push, NewDescriptions: { $each: newDescriptions } };
-
-            (
-                id,
-                update,
-                { new: true }
-            );
-
+            if (!update.$push) {
+                update.$push = {};
+            }
+            update.$push.NewDescriptions = { $each: newDescriptions };
         }
 
         updatedMovie = await Movie.findByIdAndUpdate(id, update, { new: true });
