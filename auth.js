@@ -209,6 +209,11 @@ authRoutes.put('/users/:username', passport.authenticate('jwt', { session: false
 authRoutes.put('/api/tmbd/movies/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
     const { id } = req.params;
     const { newGenres, newDescriptions } = req.body;
+
+    console.log('Updating movieID:', id);
+    console.log('New genres:', newGenres);
+    console.log('New descriptions:', newDescriptions);
+
     try {
         const update = {};
         if (newGenres && newGenres.length) {
@@ -226,6 +231,7 @@ authRoutes.put('/api/tmbd/movies/:id', passport.authenticate('jwt', { session: f
         if (!updatedMovie) {
             return res.status(404).send('Movie not found.');
         }
+        console.log('Updated movie:', updatedMovie);
         res.json(updatedMovie);
     } catch (error) {
         console.error('Update Movie Error:', error);

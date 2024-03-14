@@ -85,8 +85,8 @@ Method: PUT
 Authentication: Required
 Body:
 {
-  "newGenre": "New Genre",
-  "newDescription": "New Description"
+  "newGenres": ["New Genre"],
+  "newDescriptions": ["New Description"]
 }
 Note: Allows users to update the genre or description of a movie without altering existing data.
 
