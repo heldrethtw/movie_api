@@ -2,7 +2,6 @@ import express from 'express';
 import passport from 'passport';
 import { Movie, User, Genre, Director } from '../models/schemas.js';//might remove user
 import { authenticateJWT } from '../auth.js';
-import { update } from 'lodash';
 
 
 const router = express.Router();

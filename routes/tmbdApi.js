@@ -1,5 +1,6 @@
 import axios from 'axios';
-import {TMBD_API_KEY} from '../config';
+import { TMBD_API_KEY } from '../config';
+
 
 
 
@@ -14,4 +15,4 @@ async function fetchMovieDetails(movieID) {
 }
 
 
-export {searchMovies, fetchMovieDetails};
+export { searchMovies, fetchMovieDetails };

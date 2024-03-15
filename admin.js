@@ -3,6 +3,7 @@ import { User, Movie, Director, Genre } from './models/schemas.js';
 import { authenticateJWT } from './auth.js';
 
 
+
 const adminRouter = express.Router();
 
 

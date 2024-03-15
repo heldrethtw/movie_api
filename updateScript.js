@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { Movie } from './models/schemas.js';
 import moviesData from './movies.json' assert { type: "json" };
 
+
 dotenv.config();
 
 mongoose.connect(process.env.MONGO_URI, {
