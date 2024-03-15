@@ -150,7 +150,7 @@ Method: POST
 Authorization: Required
 Body:
 {
-  "Name"
+  "Description": ["New Description", "New Description 2"]
 }
 Directors
 1)Fetch All Directors

@@ -268,7 +268,7 @@ router.put('/genres/:id', authenticateJWT,
 
             const updatedGenre = await Genre.findByIdAndUpdate(
                 req.params.id,
-                { $push: { Description: { $ech: Description } } },
+                { $push: { Description: { $each: Description } } },
                 { new: true }
             );
             if (!updatedGenre) {
