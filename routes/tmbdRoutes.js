@@ -2,6 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import { Movie, User, Genre, Director } from '../models/schemas.js';//might remove user
 import { authenticateJWT } from '../auth.js';
+import { update } from 'lodash';
 
 
 const router = express.Router();
@@ -263,11 +264,16 @@ router.get('/genres/:id', authenticateJWT,
 router.put('/genres/:id', authenticateJWT,
     async (req, res) => {
         try {
+            const { Description } = req.body;
+
             const updatedGenre = await Genre.findByIdAndUpdate(
                 req.params.id,
-                req.body,
+                { $push: { Description: { $ech: Description } } },
                 { new: true }
             );
+            if (!updatedGenre) {
+                return res.status(404).send('Genre not found');
+            }
             res.json(updatedGenre);
         } catch (err) {
             console.error(err);

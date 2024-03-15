@@ -100,7 +100,7 @@ Authentication: Required
 Note: Returns the username and favorites. Other user details are restricted.
 
 2)Update User Profile
-Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/users/:username
+Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/auth/users/:username
 Method: PUT
 Note: Updates to other users are not permitted.
 
@@ -117,6 +117,7 @@ Retrieves the list of favorite movies for the specified user. This endpoint is o
 
 5)Adding Movie Suggestions
 Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/auth/users/:username/suggestions
+Method: POST
 Body
 
 ```json
@@ -134,6 +135,10 @@ Authentication: Required
 Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/genres
 Method: POST
 Authentication: Required
+Body: {
+  "Name": "Genre Name",
+  "Description": "Genre Description"
+}
 
 3)Fetch a Genre by Id
 Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/genres/:id
@@ -141,7 +146,12 @@ Method: GET
 
 4)Update a Genre
 Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/genres/:id
-
+Method: POST
+Authorization: Required
+Body:
+{
+  "Name"
+}
 Directors
 1)Fetch All Directors
 Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/directors

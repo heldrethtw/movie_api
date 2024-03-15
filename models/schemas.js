@@ -13,7 +13,7 @@ let movieSchema = new Schema({
 
 let genreSchema = new Schema({
     Name: { type: String, required: true },
-    Description: { type: String, required: true }
+    Description: [{ type: String, required: true }]
 });
 
 let directorSchema = new Schema({
