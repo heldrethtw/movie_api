@@ -174,8 +174,6 @@ Body:
 Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/directors/:id
 Method: GET
 
-4)Update a Director
-Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/directors/:id
 
 Admin Operations
 
