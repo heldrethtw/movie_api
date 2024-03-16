@@ -85,8 +85,8 @@ Method: PUT
 Authentication: Required
 Body:
 {
-  "newGenres": ["New Genre"],
-  "newDescriptions": ["New Description"]
+  "NewGenres": ["New Genre"],
+  "NewDescriptions": ["New Description"]
 }
 Note: Allows users to update the genre or description of a movie without altering existing data.
 
@@ -162,6 +162,13 @@ Authentication: Required
 Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/directors
 Method: POST
 Authentication: Required
+Body:
+{
+  "Name": "Director's Name",
+  "Bio": "Director's biography text, summarizing their life, career, achievements, etc.",
+  "Birth": "Director's birth date (YYYY-MM-DD)",
+  "Death": "Director's death date, if applicable (YYYY-MM-DD) (optional)"
+}
 
 3)Fetch a Director by Id
 Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/directors/:id
