@@ -207,10 +207,10 @@ authRoutes.put('/users/:username', passport.authenticate('jwt', { session: false
     }
 });
 
+//endpoint to add genres and descriptions to a movie
 authRoutes.put('/api/tmbd/movies/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
     const { id } = req.params;
     const { newGenres, newDescriptions } = req.body;
-
 
     try {
         const updatedMovie = await Movie.findByIdAndUpdate(
