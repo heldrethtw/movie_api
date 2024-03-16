@@ -229,8 +229,8 @@ authRoutes.put('/api/tmbd/movies/:id', passport.authenticate('jwt', { session: f
         }
         res.json(updatedMovie);
     } catch (error) {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
+        console.error(error);
+        res.status(500).send('Error: ' + error);
     }
 });
 
