@@ -153,7 +153,7 @@ authRoutes.post('/users/:username/movies/:movieId/favorites', passport.authentic
     }
 });
 
-authRoutes.get('users/:username/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
+/*authRoutes.get('users/:username/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
     const { username } = req.params;
     try {
         const user = await User.findOne({ Username: username }).populate('Favorites');
@@ -165,21 +165,9 @@ authRoutes.get('users/:username/favorites', passport.authenticate('jwt', { sessi
         console.error('Error getting favorites:', error);
         res.status(500).send('Error getting favorites.');
     }
-});
+});/*/
 
-authRoutes.get('users/:username/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    const { username } = req.params;
-    try {
-        const user = await User.findOne({ Username: username }).populate('Favorites');
-        if (!user) {
-            return res.status(400).send('User not found.');
-        }
-        res.json(user.Favorites);
-    } catch (error) {
-        console.error('Error getting favorites:', error);
-        res.status(500).send('Error getting favorites.');
-    }
-});
+
 
 // Endpoint to update user profile
 authRoutes.put('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res) => {
