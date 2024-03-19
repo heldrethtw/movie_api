@@ -28,7 +28,7 @@ Note: Authenticate and receive a JWT token for accessing protected routes.
 
 Log Out:
 
-Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api.auth/logout
+Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/auth/logout
 Method: POST
 Request Headers:
 Authorization: Bearer Token
@@ -102,11 +102,19 @@ Note: Returns the username and favorites. Other user details are restricted.
 2)Update User Profile
 Endpoint: https://donkey-archive-af41e8314602.herokuapp.com/api/auth/users/:username
 Method: PUT
-Note: Updates to other users are not permitted.
+Authentication: required
+Body:
+{
+  "Birth": "0000-00-00",
+  "Username": "newusername",
+  "Password": "newpassword123",
+  "Email": "newemail@example.com"
+}
+Note: Do not enter a category unless you plan to update that category. Updates to other users are not permitted.Birth is year first, (all four digits) month second, two digits(so, July is 07 for example) and third days following the same format as months ( So, July 4th 1987 would read 1987-07-04).
 
 3)Add a Favorite Movie
 Endpoint:https://donkey-archive-af41e8314602.herokuapp.com/api/auth/users/:username/movies/:movieId/favorites
-Method: PUT
+Method: POST
 This allows authenticated users to add a movie to their own list of favorites.
 
 4)Viewing User Favorites
