@@ -153,21 +153,6 @@ authRoutes.post('/users/:username/movies/:movieId/favorites', passport.authentic
     }
 });
 
-/*authRoutes.get('users/:username/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    const { username } = req.params;
-    try {
-        const user = await User.findOne({ Username: username }).populate('Favorites');
-        if (!user) {
-            return res.status(400).send('User not found.');
-        }
-        res.status(200).send(user.Favorites);
-    } catch (error) {
-        console.error('Error getting favorites:', error);
-        res.status(500).send('Error getting favorites.');
-    }
-});/*/
-
-
 
 // Endpoint to update user profile
 authRoutes.put('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res) => {
