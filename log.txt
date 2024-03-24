@@ -1,0 +1,9 @@
+import datetime
+
+# Open the log file in append mode
+with open('/Users/travisheldreth/movie-api/log.txt', 'a') as file:
+    # Get the current timestamp
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    # Write a log message to the file
+    file.write(f"[{timestamp}] Log message goes here\n")
