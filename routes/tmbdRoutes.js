@@ -8,7 +8,7 @@ const router = express.Router();
 
 
 // Create a new movie
-router.post('/movies',
+router.post('/movies', authenticateJWT,
     async (req, res) => {
         try {
             const newMovie = new Movie(req.body);
@@ -21,7 +21,7 @@ router.post('/movies',
     });
 
 // Get all movies
-router.get('/movies',
+router.get('/movies', authenticateJWT,
     async (req, res) => {
         try {
             const movies = await Movie.find();
