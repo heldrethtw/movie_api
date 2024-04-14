@@ -32,7 +32,8 @@ const app = express();
 app.use(helmet());
 app.use('/api/admin', adminRoutes);
 
-let allowedOrigins = ['http://localhost:3000', 'https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/movies', 'https://localhost:1234'];
+let allowedOrigins = ['http://localhost:3000', 'donkeyarchive.netlify.app',
+    'https://donkey-archive-af41e8314602.herokuapp.com/api/tmbd/movies', 'https://localhost:1234'];
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
