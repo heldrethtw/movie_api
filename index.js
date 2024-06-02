@@ -45,7 +45,7 @@ const allowedOrigins = [
 const corsOptions = {
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
+        if (allowedOrigins.indexOf(origin === -1)) {
             const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
             console.error(message + "Rejected origin:" + origin);
             return callback(new Error(msg), false);
