@@ -6,6 +6,8 @@ import dotenv from 'dotenv';
 import { connect } from 'mongoose';
 import passport from 'passport';
 import { json, urlencoded } from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import './passport.js';
 import authRoutes from './auth.js';
 import tmbdRoutes from './routes/tmbdRoutes.js';
@@ -32,7 +34,7 @@ const app = express();
 app.use(helmet());
 
 
-let allowedOrigins = [
+const allowedOrigins = [
     'http://localhost:3000',
     'donkeyarchive.netlify.app',
     'https://donkey-archive-af41e8314602.herokuapp.com',
@@ -40,23 +42,24 @@ let allowedOrigins = [
     'https://localhost:1234/'];
 
 
-app.use(cors({
+const corsOptions = {
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
         if (allowedOrigins.indexOf(origin) === -1) {
-            let message = 'The CORS policy for this site does not allow access from the specified Origin.';
-            console.error(message + " Rejected origin: ", + origin);
-            return callback(new Error(message), false);
+            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            console.error(message + "Rejected origin:" + origin);
+            return callback(new Error(msg), false);
         }
         return callback(null, true);
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
-}));
+};
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
+
 
 
 app.use((req, res, next) => {
@@ -71,10 +74,13 @@ app.use((req, res, next) => {
 
 
 app.use(morgan('common'));
-app.use(express.static('public'));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(passport.initialize());
+
 
 
 
