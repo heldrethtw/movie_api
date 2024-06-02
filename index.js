@@ -30,11 +30,16 @@ connect(uri)
 const app = express();
 
 app.use(helmet());
-app.use('/api/admin', adminRoutes);
 
-let allowedOrigins = ['http://localhost:3000', 'donkeyarchive.netlify.app',
-    'https://donkey-archive-af41e8314602.herokuapp.com', 'https://localhost:1234',
+
+let allowedOrigins = [
+    'http://localhost:3000',
+    'donkeyarchive.netlify.app',
+    'https://donkey-archive-af41e8314602.herokuapp.com',
+    'https://localhost:1234',
     'https://localhost:1234/'];
+
+
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
@@ -44,8 +49,26 @@ app.use(cors({
             return callback(new Error(message), false);
         }
         return callback(null, true);
-    }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
 }));
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+        return res.status(200).json({});
+    }
+    next();
+});
+
 
 app.use(morgan('common'));
 app.use(express.static('public'));
@@ -53,14 +76,19 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(passport.initialize());
 
+
+
 app.get('/', (req, res) => {
     res.json({
         message: 'Server is running! Welcome to the Donkey Archive!'
     });
 });
 
+
 app.use('/api/tmbd', tmbdRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
+
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
