@@ -27,7 +27,7 @@ let userSchema = new Schema({
     Username: { type: String, required: true },
     Password: { type: String, required: true },
     Email: { type: String, required: true },
-    Birth: Date,
+    Birth: { type: Date, required: true },
     Favorites: [{ type: Schema.Types.ObjectId, ref: 'Movie' }],
     Suggestions: [{ type: Schema.Types.ObjectId, ref: 'Movie' }],
     Role: { type: String, default: 'user' }
