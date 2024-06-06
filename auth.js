@@ -24,6 +24,8 @@ authRoutes.post(
         check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
         check('Password', 'Password is required').not().isEmpty(),
         check('Email', 'Email does not appear to be valid').isEmail(),
+        check('Birthday', 'Birthday is required').isDate({ format: 'YYYY-MM-DD' }),
+        check('Birthday', 'Birthday must be in the format YYYY-MM-DD').isISO8601()
     ],
 
     async (req, res) => {
