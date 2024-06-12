@@ -31,6 +31,7 @@ authRoutes.post(
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
+            console.timeLog(errors.array());
             return res.status(422).json({ errors: errors.array() });
         }
         try {
