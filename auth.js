@@ -53,8 +53,8 @@ authRoutes.post(
                 { expiresIn: '7d' });
             res.status(201).json({ token, Username: newUser.Username });
         } catch (error) {
-            console.error(error);
-            res.status(500).send('Error: ' + error);
+            console.error('Error creating user', error);
+            res.status(500).json({ error: 'Internal server error.', details: error.message });
         }
     }
 );
