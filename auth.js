@@ -163,6 +163,9 @@ authRoutes.put('/users/:username', passport.authenticate('jwt', { session: false
     const { Password, ...updateData } = req.body; // Password is handled separately
 
     try {
+        if (!username) {
+            return res.status(400).send('Username is required.');
+        }
         const user = await User.findOne({ Username: username });
         if (!user) {
             return res.status(400).send('User not found.');
