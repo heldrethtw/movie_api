@@ -31,17 +31,12 @@ connect(uri)
 
 
 const app = express();
-const corsOptions = {
-    methods: 'GET, HEAD, POST, PUT, PATCH, DELETE',
-    allowedHeaders: 'Content-Type, Authorization, Origin, X-Requested-With, Accept',
-    optionsSuccessStatus: 204
-};
+
 
 app.use(helmet());
 
 
-app.use(cors(corsOptions)
-);
+
 
 app.use(cors({
     origin: 'http://localhost:1234'
