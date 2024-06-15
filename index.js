@@ -12,7 +12,7 @@ import './passport.js';
 import authRoutes from './auth.js';
 import tmbdRoutes from './routes/tmbdRoutes.js';
 import adminRoutes from './admin.js';
-import { all } from 'axios';
+import axios, { all } from 'axios';
 
 passport.initialize();
 dotenv.config();

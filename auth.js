@@ -6,12 +6,13 @@ import passport from 'passport';
 import { User } from './models/schemas.js';
 import dotenv from 'dotenv';
 import tokenBlacklist from './models/tokenBlacklist.js';
-
+import axios from 'axios';
+import './passport.js';
 
 
 dotenv.config();
 
-import './passport.js';
+
 
 export const authenticateJWT = passport.authenticate('jwt', { session: false });
 
@@ -74,6 +75,7 @@ authRoutes.post('/login',
         res.json({ Username: req.user.Username, token });
     }
 );
+
 
 authRoutes.post('/logout', passport.authenticate('jwt', { session: false }), async (req, res) => {
     try {
