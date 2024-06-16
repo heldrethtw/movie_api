@@ -12,7 +12,7 @@ import './passport.js';
 import authRoutes from './auth.js';
 import tmbdRoutes from './routes/tmbdRoutes.js';
 import adminRoutes from './admin.js';
-import axios, { all } from 'axios';
+
 
 passport.initialize();
 dotenv.config();
@@ -24,10 +24,7 @@ dotenv.config();
 //     .then(() => console.log('Connected to MongoDB with Mongoose'))
 //     .catch(error => console.error('Error connecting to MongoDB:', error));
 
-const uri = process.env.MONGO_URI;
-connect(uri)
-    .then(() => console.log('Connected to MongoDB with Mongoose'))
-    .catch(error => console.error('Error connecting to MongoDB:', error));
+
 
 
 const app = express();
@@ -35,27 +32,27 @@ const app = express();
 
 app.use(helmet());
 
-
-
-
 app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     origin: 'http://localhost:1234'
 }));
 
-
-
-
-
 app.use(morgan('common'));
+
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(passport.initialize());
 
-
+const uri = process.env.MONGO_URI;
+connect(uri)
+    .then(() => console.log('Connected to MongoDB with Mongoose'))
+    .catch(error => console.error('Error connecting to MongoDB:', error));
 
 
 app.get('/', (req, res) => {
