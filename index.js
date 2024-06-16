@@ -39,8 +39,8 @@ app.use(helmet());
 
 
 app.use(cors({
-
-    origin: 'http://localhost:1234',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: 'http://localhost:1234'
 }));
 
 
