@@ -163,6 +163,8 @@ router.put('/users/:username/add-favorite/:movieID', authenticateJWT,
         try {
             const { movieId } = req.params;
             const username = req.params.username;
+            const movie = await Movie.findById(movieId);
+
             const updatedUser = await User.findOneAndUpdate(
                 { Username: username },
                 { $push: { Favorites: movieId } },

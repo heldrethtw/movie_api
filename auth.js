@@ -227,4 +227,6 @@ authRoutes.put('/api/tmbd/movies/:id', passport.authenticate('jwt', { session: f
 });
 
 
+
+
 export default authRoutes;
