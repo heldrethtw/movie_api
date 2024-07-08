@@ -140,24 +140,35 @@ authRoutes.post('/users/:username/suggestions', passport.authenticate('jwt', { s
 
 authRoutes.post('/users/:username/movies/:movieId/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
     const { username, movieId } = req.params;
+    console.log(`Attempting to add favorite: User: ${username}, Movie: ${movieId}`); // Add this log
+
     try {
         const user = await User.findOne({ Username: username });
         if (!user) {
-            return res.status(400).send('User not found.');
+            console.log(`User not found: ${username}`); // Add this log
+            return res.status(404).json({ message: 'User not found.' });
         }
-        if (!user.Favorites.includes(movieId)) {
-            user.Favorites.push(movieId);
-            await user.save();
-            res.status(200).send('Favorite added.');
-        } else {
-            res.status(400).send('Movie already in favorites.');
+
+        const movie = await Movie.findById(movieId); // Verify the movie exists
+        if (!movie) {
+            console.log(`Movie not found: ${movieId}`); // Add this log
+            return res.status(404).json({ message: 'Movie not found.' });
         }
+
+        if (user.Favorites.includes(movieId)) {
+            console.log(`Movie already in favorites: ${movieId}`); // Add this log
+            return res.status(400).json({ message: 'Movie already in favorites.' });
+        }
+
+        user.Favorites.push(movieId);
+        await user.save();
+        console.log(`Favorite added successfully: ${movieId}`); // Add this log
+        res.status(200).json({ message: 'Favorite added successfully.', favorites: user.Favorites });
     } catch (error) {
         console.error('Error adding favorite:', error);
-        res.status(500).send('Error adding favorite.');
+        res.status(500).json({ message: 'Error adding favorite.', error: error.message });
     }
 });
-
 
 // Endpoint to update user profile
 authRoutes.put('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res) => {
