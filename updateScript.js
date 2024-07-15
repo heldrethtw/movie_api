@@ -14,7 +14,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config({path: path.join(__dirname, '.env')});
-
+console.log ("TMDB_API_KEY", process.env.TMDB_API_KEY);
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 mongoose.connect(process.env.MONGO_URI, {
