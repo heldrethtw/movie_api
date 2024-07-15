@@ -24,7 +24,9 @@ router.post('/movies', authenticateJWT,
 router.get('/movies', authenticateJWT,
     async (req, res) => {
         try {
-            const movies = await Movie.find();
+            const movies = await Movie.find()
+            .populate('Genre')
+            .populate('Director');
             res.json(movies);
         } catch (err) {
             console.error(err);
@@ -36,7 +38,9 @@ router.get('/movies', authenticateJWT,
 router.get('/movies/:id', authenticateJWT,
     async (req, res) => {
         try {
-            const movie = await Movie.findById(req.params.id);
+            const movie = await Movie.findById(req.params.id)
+                .populate('Genre')
+                .populate('Director');
             if (movie) {
                 res.json(movie);
             } else {
@@ -53,7 +57,9 @@ router.get('/movies/title/:title', authenticateJWT,
     async (req, res) => {
         const { title } = req.params;
         try {
-            const movie = await Movie.findOne({ "Title": req.params.title });
+            const movie = await Movie.findOne({ "Title": req.params.title })
+                .populate('Genre')
+                .populate('Director');
             if (movie) {
                 res.json(movie);
             } else {
