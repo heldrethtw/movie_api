@@ -199,6 +199,27 @@ authRoutes.put('/users/:username', passport.authenticate('jwt', { session: false
     }
 });
 
+// Endpoint to delete a user
+authRoutes.delete('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    const { username } = req.params;
+    try {
+        const { username } = req.params;
+        if(req.user.Username !== username) {
+            return res.status(403).send('You can only delete your own account.');
+        }
+
+        const deletedUser = await User.findOneAndDelete({ Username: username });
+        if (!deletedUser) {
+            return res.status(404).send('User not found.');
+        }
+        res.json({ message: 'User deleted successfully.', user: deletedUser });
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        res.status(500).send('Error deleting user.');
+    }
+});
+            
+
 //endpoint to add genres and descriptions to a movie
 authRoutes.put('/api/tmbd/movies/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
     const { id } = req.params;

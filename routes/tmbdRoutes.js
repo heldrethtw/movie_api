@@ -210,6 +210,7 @@ router.delete('/users/:username/favorites/:movieID', authenticateJWT,
     }
 );
 
+
 //update all user birth dates to ISOdate
 router.put('/users/birth', passport.authenticate(
     'jwt', { session: false }),
