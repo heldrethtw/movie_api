@@ -34,7 +34,7 @@ app.use(helmet());
 
 app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    origin: 'http://localhost:1234, http://localhost:61053'
+    origin: 'http://localhost:1234'
 }));
 
 app.use(morgan('common'));
