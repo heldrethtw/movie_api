@@ -142,14 +142,14 @@ authRoutes.post('/users/:username/suggestions', passport.authenticate('jwt', { s
 authRoutes.get('/users/:username/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
     console.log('Received request for favorites. Username:', req.params.username);
     try {
-        const user = await User.findOne({ Username: req.params.username }).select('Favorites');
+        const user = await User.findOne({ Username: req.params.username }).populate('Favorites');
         if (!user) {
             console.log('User not found:', req.params.username);
             return res.status(404).json({ message: 'User not found.' });
         }
         console.log('Found user, favorites:', user.Favorites);
 
-        // Set headers to prevent caching
+         
         res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
         res.setHeader('Pragma', 'no-cache');
         res.setHeader('Expires', '0');
