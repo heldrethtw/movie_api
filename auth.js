@@ -139,7 +139,6 @@ authRoutes.post('/users/:username/suggestions', passport.authenticate('jwt', { s
 });
 
 
-
 authRoutes.get('/users/:username/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
     console.log('Received request for favorites. Username:', req.params.username);
     try {
@@ -148,13 +147,20 @@ authRoutes.get('/users/:username/favorites', passport.authenticate('jwt', { sess
             console.log('User not found:', req.params.username);
             return res.status(404).json({ message: 'User not found.' });
         }
-        console.log('Found user, returning favorites:', user.Favorites);
-        res.json(user.Favorites);
+        console.log('Found user, favorites:', user.Favorites);
+
+        // Set headers to prevent caching
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Expires', '0');
+
+        return res.json(user.Favorites);
     } catch (error) {
         console.error('Error fetching favorites:', error);
-        res.status(500).json({ message: 'Error fetching favorites.', error: error.message });
+        return res.status(500).json({ message: 'Error fetching favorites.', error: error.message });
     }
 });
+
 
 // Endpoint to update user profile
 authRoutes.put('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res) => {
