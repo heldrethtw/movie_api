@@ -138,35 +138,21 @@ authRoutes.post('/users/:username/suggestions', passport.authenticate('jwt', { s
     }
 });
 
-authRoutes.post('/users/:username/movies/:movieId/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    const { username, movieId } = req.params;
-    console.log(`Attempting to add favorite: User: ${username}, Movie: ${movieId}`); // Add this log
 
+
+authRoutes.get('/users/:username/favorites', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    console.log('Received request for favorites. Username:', req.params.username);
     try {
-        const user = await User.findOne({ Username: username });
+        const user = await User.findOne({ Username: req.params.username }).select('Favorites');
         if (!user) {
-            console.log(`User not found: ${username}`); // Add this log
+            console.log('User not found:', req.params.username);
             return res.status(404).json({ message: 'User not found.' });
         }
-
-        const movie = await Movie.findById(movieId); // Verify the movie exists
-        if (!movie) {
-            console.log(`Movie not found: ${movieId}`); // Add this log
-            return res.status(404).json({ message: 'Movie not found.' });
-        }
-
-        if (user.Favorites.includes(movieId)) {
-            console.log(`Movie already in favorites: ${movieId}`); // Add this log
-            return res.status(400).json({ message: 'Movie already in favorites.' });
-        }
-
-        user.Favorites.push(movieId);
-        await user.save();
-        console.log(`Favorite added successfully: ${movieId}`); // Add this log
-        res.status(200).json({ message: 'Favorite added successfully.', favorites: user.Favorites });
+        console.log('Found user, returning favorites:', user.Favorites);
+        res.json(user.Favorites);
     } catch (error) {
-        console.error('Error adding favorite:', error);
-        res.status(500).json({ message: 'Error adding favorite.', error: error.message });
+        console.error('Error fetching favorites:', error);
+        res.status(500).json({ message: 'Error fetching favorites.', error: error.message });
     }
 });
 
